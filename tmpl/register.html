@@ -1,0 +1,28 @@
+
+<div class="section">
+    <br>
+    <ul class="columns-content page-content clearfix">
+        <li class="col-main">
+            <h2 class="page-title">Регистрация</h2>
+            <form method="post" id="loginform">
+                <div class="field-row">
+                    <label for="name">Ваше имя<span class="required">*</span></label>
+                    <input type="text" class="text_input" id="name" ng-model="name">
+                </div>
+                <div class="field-row">
+                    <label for="email">Email<span class="required">*</span></label>
+                    <input type="email" class="text_input" id="email" ng-model="email">
+                </div>
+                <div class="field-row">
+                    <label for="password">Пароль<span class="required">*</span></label>
+                    <input class="text_input" type="password" id="passwor" ng-model="password">
+                </div>
+                <p class="form-row">
+                    <input type="submit" class="button2" value="Зарегистрировать" ng-click="register($event)">
+
+                    <!--<a class="lost_password" href="" ng-click="lostPassword($event)">Потеряли пароль?</a>-->
+                </p>
+            </form>
+        </li>
+    </ul>
+</div>

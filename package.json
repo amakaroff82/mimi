@@ -1,0 +1,19 @@
+{
+  "name": "MiMi",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./bin/server.js -mode development"
+  },
+  "dependencies": {
+    "colors": "0.x.x",
+    "node-static": "^0.7.7",
+    "optimist": "0.6.x",
+    "pkginfo": "0.3.x",
+    "underscore": "^1.7.0",
+    "utile": "~0.2.1"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.10.29"
+  }
+}

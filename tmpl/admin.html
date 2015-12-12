@@ -1,0 +1,70 @@
+﻿
+
+
+
+<div id="container">
+	<div id="content" role="main">
+		<div id="page-header">
+			<img src="css/img/page-header1.jpg" alt="">
+		</div>
+		<!-- BEGIN .section -->
+		<div class="section">
+			<ul class="columns-content page-content clearfix">
+				<!-- BEGIN .col-main -->
+				<li class="col-main">
+					<h2 class="page-title">
+						Все продукты
+					</h2>
+					<div class="page-description"></div>
+					<ul class="columns-3 clearfix product-list">
+						<li product="product" path="edit_product" ng-repeat="product in products">
+
+						</li>
+					</ul>
+					<div class="clear"></div>
+
+					<!-- END .col-main -->
+				</li>
+
+
+				<li class="col-sidebar">
+					<h2>Новый продукт</h2>
+					<div class="">
+						<div class="field-row">
+							<label for="title">Название<span class="required">*</span></label>
+							<input type="text" class="text_input" ng-model="model.newProduct.title" name="title" id="title">
+						</div>
+						<div class="field-row">
+							<label for="price">Цена<span class="required">*</span></label>
+							<input type="text" class="text_input" ng-model="model.newProduct.price" name="price" id="price">
+						</div>
+						<div class="field-row">
+							<label for="price_old">Старая цена<span class="required">*</span></label>
+							<input type="text" class="text_input" ng-model="model.newProduct.price_old" name="price_old" id="price_old">
+						</div>
+						<div class="field-row">
+							<label for="count">Количество<span class="required">*</span></label>
+							<input type="text" class="text_input" ng-model="model.newProduct.count" name="count" id="count">
+						</div>
+						<div class="field-row">
+							<label for="description">Описание<span class="required">*</span></label>
+							<input type="text" class="text_input" ng-model="model.newProduct.description" name="description" id="description">
+						</div>
+					</div>
+
+
+					<!--<input name="upload[]" type="file" multiple="multiple" />-->
+					<a rel="nofollow" class="button2 product_type_simple" ng-click="addNewProduct()">
+						Добавить продукт
+					</a>
+				</li>
+
+
+			</ul>
+			<!-- END .section -->
+		</div>
+	</div>
+</div>
+
+
+

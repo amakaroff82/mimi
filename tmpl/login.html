@@ -1,0 +1,24 @@
+
+<div class="section">
+    <br>
+    <ul class="columns-content page-content clearfix">
+        <li class="col-main">
+            <h2 class="page-title">Логин</h2>
+            <form method="post" id="loginform">
+                <div class="field-row">
+                    <label for="username">Email<span class="required">*</span></label>
+                    <input type="text" class="text_input" name="email" id="username" ng-model="email">
+                </div>
+                <div class="field-row">
+                    <label for="password">Пароль<span class="required">*</span></label>
+                    <input class="text_input" type="password" name="password" id="password" ng-model="password">
+                </div>
+                <p class="form-row">
+                    <input type="submit" class="button2" name="login" value="Login" ng-click="login($event)">
+
+                    <a class="lost_password" href="" ng-click="lostPassword($event)">Потеряли пароль?</a>
+                </p>
+            </form>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US" >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- Title -->
+	<title>MiMi-shop | My handmade</title>
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="./css/style.css" type="text/css" media="all">
+	<link href="./css/css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		h1, h2, h3, h4, h5, h6, #ui-datepicker-div .ui-datepicker-title, .dropcap, .ui-tabs .ui-tabs-nav li,
+		#title-wrapper h1, #main-menu li, #main-menu li span, .caption, .accommodation_img_price {
+			font-family: 'Cardo', serif;
+		}
+
+		#site-title {
+			width: 220px;
+		}</style>
+	<!-- RSS Feeds & Pingbacks -->
+	<link rel="alternate" type="application/rss+xml" title="Organic Shop RSS Feed" href="feed/">
+	<link rel="pingback" href="xmlrpc.php">
+	<link rel="alternate" type="application/rss+xml" title="Organic Shop » Feed" href="feed/">
+	<link rel="alternate" type="application/rss+xml" title="Organic Shop » Comments Feed" href="comments/feed/">
+	<link rel="alternate" type="application/rss+xml" title="Organic Shop » Home Comments Feed" href="home/feed/">
+	<link rel="stylesheet" id="woocommerce_frontend_styles-css" href="./css/woocommerce.css" type="text/css" media="all">
+	<link rel="stylesheet" id="superfish-css" href="./css/superfish.css" type="text/css" media="all" A>
+	<link rel="stylesheet" id="prettyPhoto-css" href="./css/prettyPhoto.css" type="text/css" media="all">
+	<link rel="stylesheet" id="flexslider-css" href="./css/flexslider.css" type="text/css" media="all">
+	<link rel="stylesheet" id="color-css" href="./css/green.css" type="text/css" media="all">
+	<link rel="stylesheet" id="responsive-css" href="./css/responsive.css" type="text/css" media="all">
+	<link rel="stylesheet" id="responsive-css" href="./css/fancybox.css" type="text/css" media="all">
+	<link rel="stylesheet" id="responsive-css" href="./libs/angular-bootstrap/ui-bootstrap-csp.css" type="text/css" media="all">
+
+
+	<!-- END head -->
+</head>
+<!-- BEGIN body -->
+<body class="home page page-id-14 page-template page-template-template-homepage-php theme-organicshop" ng-app="app" >
+	<!-- BEGIN .wrapper -->
+	<div ng-controller="AppController" class="wrapper">
+		<!-- BEGIN .topbar -->
+		<div class="topbar clearfix">
+			<div class="topbar-right clearfix">
+				<ul class="clearfix" ng-cloak>
+					<li ng-show="!user.isAutorized" class="checkout-icon"><a href="#/login">Вход</a></li>
+					<li ng-show="!user.isAutorized" class="checkout-icon"><a href="#/register">Регистрация</a></li>
+					<li ng-show="user.isAutorized" class="myaccount-icon"><a href="#/rofile">Мои настройки</a></li>
+					<li ng-show="user.isAutorized" class="myaccount-icon"><a href="" ng-click="logout($event)">Выход</a></li>
+				</ul>
+				<div class="cart-top">
+					<p><a href="#/cart">0 товаров</a></p>
+				</div>
+			</div>
+		</div>
+		<div id="site-title">
+			<h1>
+				<a href="http://themes.quitenicestuff.com/organicshopwp">mimi <span>shop</span></a>
+			</h1>
+		</div>
+		<!-- BEGIN .main-menu-wrapper -->
+		<div id="main-menu-wrapper" class="clearfix">
+			<ul superfish categories="categories" id="main-menu" class="fl clearfix sf-js-enabled">
+				<li>
+					<a href="#/">Главная</a>
+				</li>
+				<li>
+					<a href="#products" class="sf-with-ul">Магазин<span class="sf-sub-indicator"> »</span></a>
+					<ul class="sub-menu" style="display: none; visibility: hidden;">
+						<li ng-repeat="category in categories">
+							<a ng-href="#products?catId={{category.id}}">{{category.name}}</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#payment">Оплата и доставка</a>
+				</li>
+				<li>
+					<a href="#contacts">Контакты</a>
+				</li>
+				<li>
+					<a href="#gallery">Галерея</a>
+				</li>
+				<access-control>
+					<li>
+						<a href="#shop-control">Управление</a>
+					</li>
+				</access-control>
+			</ul>
+
+			<form method="get" id="menu-search" class="fr">
+				<input type="text" name="s">
+			</form>
+
+			<!-- END .main-menu-wrapper -->
+			<select>
+				<!--   TODO
+				<option selected="selected" value="">Go to...</option>
+				<option value="">Home</option>
+				<option value="shop/">Shop »</option>
+
+				<option value="?product_cat=skin-care">Skin Care</option>
+				<option value="?product_cat=bath-body-care">Bath &amp; Body Care</option>
+				<option value="?product_cat=fragrance">Fragrance</option>
+				<option value="?product_cat=make-up">Make-Up</option>
+				<option value="?product_cat=hair">Hair</option>
+				<option value="?product_cat=moisturisers">Moisturisers</option>
+				<option value="testimonials/">Testimonials</option>
+
+				<option value="blog/">Blog</option>
+				<option value="contact/">Contact</option>-->
+			</select>
+		</div>
+
+		<div ng-view> </div>
+
+		<!-- BEGIN #footer-bottom -->
+		<div id="footer-bottom" class="clearfix">
+			<div class="fl clearfix">
+				<!-- Secondary Menu -->
+				<ul class="footer-menu">
+					<li class="menu-item menu-item-type-post_type menu-item-object-page">
+						<a href="#/">Главная</a>
+					</li>
+
+					<li class="menu-item menu-item-type-post_type menu-item-object-page">
+						<a href="#/contacts">Контакты</a>
+					</li>
+				</ul>
+				<p>© Copyright 2015</p>
+			</div>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="./libs/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./libs/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="./libs/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script type="text/javascript" src="./libs/angular-cookies/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="./libs/angular-sanitize/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="./libs/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script type="text/javascript" src="./libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<!-- <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="./js/hoverIntent.js"></script>
+	<script type="text/javascript" src="./js/superfish.js"></script>
+	<script type="text/javascript" src="./js/jquery.prettyPhoto.js"></script>
+
+	<script type="text/javascript" src="./js/jquery.numeric.js"></script>
+	<script type="text/javascript" src="./js/scripts.js"></script>
+	<script type="text/javascript" src="./js/add-to-cart.min.js"></script> -->
+	<!--<script type="text/javascript" src="./js/woocommerce.min.js"></script>-->
+
+	<script type="text/javascript" src="./js/fancybox.min.js"></script>
+	<script type="text/javascript" src="./js/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="./js/superfish.js"></script>
+
+	<script type="text/javascript" src="./js/application.js"></script>
+
+	<script type="text/javascript" src="./js/services/loader.js"></script>
+	<script type="text/javascript" src="./js/config.js"></script>
+	<script type="text/javascript" src="./js/services/api.js"></script>
+	<script type="text/javascript" src="./js/services/http-client.js"></script>
+	<script type="text/javascript" src="./js/services/userService.js"></script>
+
+
+	<script type="text/javascript" src="./js/controllers/appController.js"></script>
+	<script type="text/javascript" src="./js/controllers/homeController.js"></script>
+	<script type="text/javascript" src="./js/controllers/productsController.js"></script>
+	<script type="text/javascript" src="./js/controllers/productController.js"></script>
+	<script type="text/javascript" src="./js/controllers/cartController.js"></script>
+	<script type="text/javascript" src="./js/controllers/contactsController.js"></script>
+	<script type="text/javascript" src="./js/controllers/adminController.js"></script>
+
+	<script type="text/javascript" src="./js/controllers/registerController.js"></script>
+	<script type="text/javascript" src="./js/controllers/loginController.js"></script>
+
+	<script type="text/javascript" src="./js/directives/jqueryDirectives.js"></script>
+	<script type="text/javascript" src="./js/directives/product.js"></script>
+
+
+
+</body>
+</html>
