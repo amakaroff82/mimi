@@ -72,6 +72,7 @@ angular.module('app')
                 var def = $q.defer();
                 var promise =  def.promise;
 
+                //debugger
                 apiService.getUserData(user.apiKey).then(function(result){
                     if(!result.error){
                         user.name = result.name;

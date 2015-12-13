@@ -1,8 +1,7 @@
 
     <a ng-href="#/{{path}}/{{product.id}}">
         <div class="product-image">
-            <!--<span class="onsale">Продажа!</span>-->
-            <img ng-src="{{images}}" class="attachment-shop_catalog wp-post-image" alt="{{product.title}}" title="{{product.title}}">
+            <img ng-src="{{$root.getShortImage(product.path, true)}}" class="attachment-shop_catalog wp-post-image" alt="{{product.title}}" title="{{product.title}}">
         </div>
         <p class="product-title">{{product.title}}</p>
 

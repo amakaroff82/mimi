@@ -251,7 +251,7 @@ HttpProxy.prototype.proxyRequest = function (req, res, buffer) {
     outgoing.headers.host = this.target.host;
 
     if(outgoing.headers.referer){
-      outgoing.headers.referer = 'https://' + outgoing.headers.host + '/';
+      outgoing.headers.referer = outgoing.headers.host + '/';
     }
     // Only add port information to the header if not default port
     // for this protocol.

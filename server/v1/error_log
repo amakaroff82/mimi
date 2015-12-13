@@ -1,0 +1,8 @@
+[11-Dec-2015 18:30:32 Europe/Kiev] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/mimis99/public_html/v1/index.php on line 220
+[11-Dec-2015 18:30:32 Europe/Kiev] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/mimis99/public_html/v1/index.php on line 220
+[11-Dec-2015 18:30:32 Europe/Kiev] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/mimis99/public_html/v1/index.php on line 220
+[11-Dec-2015 18:30:32 Europe/Kiev] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/mimis99/public_html/v1/index.php on line 220
+[11-Dec-2015 18:30:40 Europe/Kiev] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/mimis99/public_html/v1/index.php on line 220
+[11-Dec-2015 18:30:40 Europe/Kiev] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/mimis99/public_html/v1/index.php on line 220
+[11-Dec-2015 20:24:00 Europe/Kiev] PHP Fatal error:  Call to a member function execute() on a non-object in /home/mimis99/public_html/include/DbHandler.php on line 306
+[11-Dec-2015 20:25:09 Europe/Kiev] PHP Fatal error:  Call to a member function execute() on a non-object in /home/mimis99/public_html/include/DbHandler.php on line 306

@@ -2,10 +2,12 @@
 var httpProxy = require('./node-http-proxy');
 
 var options = {
-  changeOrigin: true,
-  target: {
-    https: true
-  }
+    changeOrigin: true,
+    proxyPaths: [
+        '/v1/',
+        '/images/',
+        '/thumb/'
+    ]
 }
 
-httpProxy.createServer(443, 'test.moduleq.com', options).listen(3004);
+httpProxy.createServer(80, 'mimi-shop.com.ua', options).listen(3004);

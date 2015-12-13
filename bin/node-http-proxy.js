@@ -117,6 +117,20 @@ exports.createServer = function () {
   options.target.port = options.target.port || port;
   options.target.host = options.target.host || host;
 
+
+  function isProxyPath(path){
+    if(options.proxyPaths && options.proxyPaths.length > 0){
+      for(var i = 0; i < options.proxyPaths.length; i++){
+        if(path.indexOf(options.proxyPaths[i]) == 0){
+          return true;
+        }
+      }
+      return false;
+    }
+    return true
+  }
+
+
   if (options.target && options.target.host && options.target.port) {
     //
     // If an explicit `host` and `port` combination has been passed
@@ -129,7 +143,7 @@ exports.createServer = function () {
     proxy = new _httpProxy.HttpProxy(options);
     handlers.push(function (req, res) {
 
-      if(req.url.indexOf('/app/') == -1) {
+      if(!isProxyPath(req.url)) {
         req.addListener('end', function () {
           file.serve(req, res);
         }).resume();
@@ -137,6 +151,7 @@ exports.createServer = function () {
       else{
         proxy.proxyRequest(req, res);
       }
+
     });
   }
   else {

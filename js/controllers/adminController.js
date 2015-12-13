@@ -8,8 +8,9 @@ angular.module('app')
         '$location',
         'loaderService',
         'apiService',
+        'userService',
 
-        function ($scope, $location, loaderService, apiService) {
+        function ($scope, $location, loaderService, apiService, userService) {
 
 
 
@@ -47,7 +48,7 @@ angular.module('app')
 
             $scope.addNewProduct = function(){
 
-                apiService.newProduct($scope.model.newProduct).then(function(result){
+                apiService.newProduct($scope.model.newProduct, userService.currentUser.apiKey).then(function(result){
                     $scope.clear();
                     $scope.updateProducts();
                 })

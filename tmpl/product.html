@@ -15,8 +15,8 @@
 							<li class="post-74 product type-product status-publish hentry col2 clearfix" id="product-74">
 								<!--<span class="onsale">Распродажа</span>-->
 								<div class="images">
-									<a fancybox itemprop="image" ng-href="{{images}}" class="zoom" rel="thumbnails" title="{{product.title}}">
-										<img ng-src="{{images}}" class="attachment-shop_single wp-post-image" alt="{{product.title}}" title="{{product.title}}">
+									<a fancybox itemprop="image" ng-href="{{$root.getShortImage(model.product.path, true)}}" class="zoom" rel="thumbnails" title="{{model.product.title}}">
+										<img ng-src="{{$root.getShortImage(model.product.path, true)}}" class="attachment-shop_single wp-post-image" alt="{{model.product.title}}" title="{{model.product.title}}">
 									</a>
 									<div class="thumbnails"></div>
 								</div>
@@ -25,28 +25,44 @@
 								<div class="summary">
 									<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
 										<h2 itemprop="price" class="product-price-single">
-											<del ng-show="product.price_old != '0.00'"><span class="amount">{{product.price_old}}грн</span></del>
-											<ins><span class="amount">{{product.price}}грн</span></ins>
+											<del ng-show="model.product.price_old != '0.00'"><span class="amount">{{model.product.price_old}}грн</span></del>
+											<ins><span class="amount">{{model.product.price}}грн</span></ins>
 										</h2>
 										<link itemprop="availability" href="http://schema.org/InStock">
 									</div>
 									<div itemprop="description">
-										<p>{{product.description}}</p>
+										<p>{{model.product.description}}</p>
 									</div>
 
-									<form action="shop/luxury-spa-set-2/?add-to-cart=74" class="qty-product-single clearfix cart" method="post" enctype="multipart/form-data">
+									<div action="shop/luxury-spa-set-2/?add-to-cart=74" class="qty-product-single clearfix cart" method="post" enctype="multipart/form-data">
 										<div class="qty-fields-large clearfix fl">
 											<input type="button" class="plusminus minus" id="minus1" value="-"><input name="quantity" data-min="1" data-max="0" value="1" size="4" title="Qty" class="qty-text" maxlength="12"><input type="button" class="plusminus plus" id="plus1" value="+">
 										</div>
 										<button type="submit" class="single_add_to_cart_button button3 fr alt">Добавить в корзину</button>
-									</form>
+									</div>
 									<div class="product_meta">
 										 <span class="posted_in">Category: <a href="product-category/bath-body-care/" rel="tag">Bath &amp; Body Care</a>, <a href="product-category/hair/" rel="tag">Hair</a>, <a href="product-category/make-up/" rel="tag">Make-Up</a>, <a href="product-category/moisturisers/" rel="tag">Moisturisers</a>, <a href="product-category/spa-products/" rel="tag">Spa Products</a>.</span>
 									</div>
 								</div><!-- .summary -->
 							</li>
 						</ul>
-						<div ng-show="product.description != ''" id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+
+						<div class="related products">
+							<div ng-repeat="image in model.images" >
+								<div class="image-preview">
+									<img ng-src="{{$root.getShortImage(image.path, true)}}">
+								</div>
+							</div>
+						</div>
+
+						<access-control>
+							<div class="add-files">
+								<button class="button3 fr alt" ngf-select="uploadFiles($files)" multiple accept="image/*">Добавить фотографии</button>
+							</div>
+						</access-control>
+
+
+						<div ng-show="model.product.description != ''" id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 							<ul class="nav clearfix ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 								<li class="description_tab ui-state-default ui-corner-top">
 									<a href="javascript:void()">Описание</a>
@@ -56,7 +72,7 @@
 								</li>-->
 							</ul>
 							<div id="tabs-tab-title-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-								<p>{{ product.description }}</p>
+								<p>{{ model.product.description }}</p>
 							</div>
 						</div>
 

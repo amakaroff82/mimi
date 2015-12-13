@@ -6,7 +6,8 @@ angular.module('app', [
     'ngRoute',
     'ngSanitize',
     'ngCookies',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'ngFileUpload'
 
 ])
     .config([
@@ -88,6 +89,18 @@ angular.module('app', [
         '$document',
 
         function ($rootScope, $location, $document) {
+
+            $rootScope.getShortImage = function(path, thumb){
+                var path = path || "";
+                if(path == ""){
+                    return "images/default/nophoto.jpg"
+                }
+                if(thumb){
+                    return "images/thumb/" + path;
+                }else{
+                    return "images/" + path;
+                }
+            }
 
             $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
             });

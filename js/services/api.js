@@ -7,7 +7,7 @@ angular.module('app')
         'httpClientService',
 
         function (httpClientService) {
-            var baseUrl = "http://mimi-shop.com.ua/v1";
+            var baseUrl = "v1"; //http://mimi-shop.com.ua/v1";
 
             function packData(obj){
                 var list = [];
@@ -31,7 +31,7 @@ angular.module('app')
                         method: 'GET',
                         url: baseUrl + '/userData',
                         headers:{
-                            "Authorization": apiKey
+                            "authorization": apiKey
                         }
                     }, handler);
                 },
@@ -48,11 +48,23 @@ angular.module('app')
                         url: baseUrl + '/products'
                     }, handler);
                 },
-                newProduct: function (data, handler) {
+                getProductImages: function (product_id, handler) {
+                    return httpClientService.sendRequest({
+                        method: 'POST',
+                        url: baseUrl + '/productImages',
+                        data:{
+                            product_id: product_id
+                        }
+                    }, handler);
+                },
+                newProduct: function (data, apiKey, handler) {
                     return httpClientService.sendRequest({
                         method: 'POST',
                         url: baseUrl + '/newProduct',
-                        data: data
+                        data: data,
+                        headers:{
+                            "authorization": apiKey
+                        }
                     }, handler);
                 },
                 getProductTypes: function (handler) {
