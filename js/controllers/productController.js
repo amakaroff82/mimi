@@ -20,18 +20,21 @@ angular.module('app')
                 for(var i = 0; i < data.products.length; i++){
                     var product = data.products[i];
                     if($routeParams.id == product.id){
-
                         $scope.model.product = product;
 
-//                        $scope.images = "images/" + (($scope.product.path != "") ? $scope.product.path : "default/nophoto.jpg");
                         return;
                     }
                 }
             });
 
-            apiService.getProductImages($routeParams.id).then(function(data){
-                $scope.model.images = data.productImages;
-            })
+            $scope.updateImages = function(){
+                apiService.getProductImages($routeParams.id).then(function(data){
+                    $scope.model.images = data.productImages;
+                })
+            }
+
+            $scope.updateImages();
+
 
             $scope.uploadFiles = function (files) {
                 $scope.files = files;
@@ -59,6 +62,22 @@ angular.module('app')
                 }
             };
 
+            $scope.selectImage = function(path){
+                $scope.model.product.path = path;
+            }
+
+            $scope.setDefaultImage = function(image_id){
+                apiService.setDefaultImage(
+                    $scope.model.product.id,
+                    image_id,
+                    userService.currentUser.apiKey
+                ).then(function(data){
+                        //$scope.selectImage()
+                    /*$timeout(function(){
+                        $scope.updateImages();
+                    }, 500)*/
+                });
+            }
 
 
             $scope.showLoader = function() {

@@ -2453,3 +2453,14 @@ ul.comment-list li li {
 .image-preview>img{
 	width: inherit;
 }
+
+.product_images > div{
+	display: inline-block;
+	margin: 9px;
+}
+
+.set-default-button{
+	/*height: 10px;
+	width: 10px;*/
+
+}

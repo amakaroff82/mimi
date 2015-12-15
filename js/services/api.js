@@ -67,6 +67,19 @@ angular.module('app')
                         }
                     }, handler);
                 },
+                setDefaultImage: function (product_id, image_id, apiKey, handler) {
+                    return httpClientService.sendRequest({
+                        method: 'POST',
+                        url: baseUrl + '/setDefaultImage',
+                        data: {
+                            product_id: product_id,
+                            image_id: image_id
+                        },
+                        headers:{
+                            "authorization": apiKey
+                        }
+                    }, handler);
+                },
                 getProductTypes: function (handler) {
                     return httpClientService.sendRequest({
                         method: 'POST',

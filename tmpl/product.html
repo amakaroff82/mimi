@@ -15,8 +15,8 @@
 							<li class="post-74 product type-product status-publish hentry col2 clearfix" id="product-74">
 								<!--<span class="onsale">Распродажа</span>-->
 								<div class="images">
-									<a fancybox itemprop="image" ng-href="{{$root.getShortImage(model.product.path, true)}}" class="zoom" rel="thumbnails" title="{{model.product.title}}">
-										<img ng-src="{{$root.getShortImage(model.product.path, true)}}" class="attachment-shop_single wp-post-image" alt="{{model.product.title}}" title="{{model.product.title}}">
+									<a fancybox itemprop="image" ng-href="{{$root.getShortImage(model.product.path)}}" class="zoom" rel="thumbnails" title="{{model.product.title}}">
+										<img ng-src="{{$root.getShortImage(model.product.path)}}" class="attachment-shop_single wp-post-image" alt="{{model.product.title}}" title="{{model.product.title}}">
 									</a>
 									<div class="thumbnails"></div>
 								</div>
@@ -47,21 +47,30 @@
 							</li>
 						</ul>
 
-						<div class="related products">
+						<div class="product_images">
+
 							<div ng-repeat="image in model.images" >
-								<div class="image-preview">
-									<img ng-src="{{$root.getShortImage(image.path, true)}}">
-								</div>
+								<a class="set-default-button" href="javascript:void(0)" ng-click="setDefaultImage(image.id)">
+									Сделать главной
+								</a>
+								<a href="javascript:void(0)" ng-click="selectImage(image.path)">
+									<div class="image-preview">
+										<img ng-src="{{$root.getShortImage(image.path, true)}}">
+									</div>
+								</a>
 							</div>
 						</div>
+						<br>
 
 						<access-control>
+							<br>
 							<div class="add-files">
 								<button class="button3 fr alt" ngf-select="uploadFiles($files)" multiple accept="image/*">Добавить фотографии</button>
 							</div>
+							<br>
 						</access-control>
 
-
+						<br>
 						<div ng-show="model.product.description != ''" id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 							<ul class="nav clearfix ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 								<li class="description_tab ui-state-default ui-corner-top">
