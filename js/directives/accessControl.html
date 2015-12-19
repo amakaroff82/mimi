@@ -1,1 +1,1 @@
-<ng-transclude ng-show="currentUser.isAdmin"></ng-transclude>
+<ng-transclude ng-show="currentUser.isAdmin && (ignoreDemoMode || !$root.demoMode)"></ng-transclude>

@@ -1,4 +1,8 @@
 
+    <access-control>
+        <img class="remove-product" src="css/img/cancel.png" ng-click="$root.removeProduct(product.id, $event)">
+    </access-control>
+
     <a ng-href="#/{{path}}/{{product.id}}">
         <div class="product-image">
             <img ng-src="{{$root.getShortImage(product.path, true)}}" class="attachment-shop_catalog wp-post-image" alt="{{product.title}}" title="{{product.title}}">

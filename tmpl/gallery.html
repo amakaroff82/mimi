@@ -11,11 +11,22 @@
 					<!-- BEGIN .col-main -->
 					<li class="col-main-old">
 						<h2 class="page-title">
-							Все продукты
+							Галерея
 						</h2>
-						<div class="page-description"></div>				
+						<div class="page-description"></div>
+
+						<access-control>
+							<a rel="nofollow" class="button2 product_type_simple" ng-click="addNewProduct()">
+								Добавить продукт
+							</a>
+							<br>
+							<br>
+							<br>
+							<br>
+						</access-control>
+
 						<ul class="columns-3 clearfix product-list">
-							<li product="product" path="product" ng-repeat="product in products | filter:{ type: typeId, sold: 0 }">
+							<li product="product" path="product" ng-repeat="product in products">
 
 							</li>
 						</ul>

@@ -47,17 +47,76 @@
 							</li>
 						</ul>
 
+						<access-control>
+							<h2>Редактирование</h2>
+							<div class="">
+								<div class="field-row">
+									<label for="title">Название<span class="required">*</span></label>
+									<input type="text" class="text_input" ng-model="model.product.title" name="title" id="title">
+								</div>
+								<div class="field-row">
+									<label for="price">Цена<span class="required">*</span></label>
+									<input type="text" class="text_input" ng-model="model.product.price" name="price" id="price">
+								</div>
+								<div class="field-row">
+									<label for="price_old">Старая цена<span class="required">*</span></label>
+									<input type="text" class="text_input" ng-model="model.product.price_old" name="price_old" id="price_old">
+								</div>
+								<div class="field-row">
+									<label for="count">Количество<span class="required">*</span></label>
+									<input type="text" class="text_input" ng-model="model.product.count" name="count" id="count">
+								</div>
+								<div class="field-row">
+									<label for="description">Тип<span class="required"></span></label>
+									<!--<input type="text" class="text_input" ng-model="model.product.description" name="description" id="description">-->
+									<select ng-options="item as item.name for item in categories track by item.id" ng-model="model.selectedType"></select>
+								</div>
+								<div class="field-row">
+									<label for="state">Наличие<span class="required"></span></label>
+									<!--<select style="width: 162px;" ng-options="item as item for item in ['','']" ng-model="model.selectedState"></select>-->
+									<input type="text" class="text_input sold-state" ng-class="{'sold' : (model.product.sold == 1)}" ng-click="model.product.sold == 0 ? model.product.sold = 1 : model.product.sold = 0" ng-value="model.product.sold == 0 ? 'В наличии' : 'Продано'"  name="state" id="state">
+								</div>
+								<div class="field-row">
+									<label for="description">Описание<span class="required">*</span></label>
+									<input type="text" class="text_input wide" ng-model="model.product.description" name="description" id="description">
+								</div>
+
+
+								<div class="buttons-panel">
+									<div class="add-files ng-scope">
+										<button class="button3 alt" ng-click="updateProduct()">Сохранить</button>
+									</div>
+
+									<div class="add-files ng-scope" ng-click="deleteProduct(model.product.id)">
+										<button class="button3 alt" >Удалить</button>
+									</div>
+								</div>
+							</div>
+							<br>
+						</access-control>
+
 						<div class="product_images">
 
 							<div ng-repeat="image in model.images" >
-								<a class="set-default-button" href="javascript:void(0)" ng-click="setDefaultImage(image.id)">
-									Сделать главной
-								</a>
 								<a href="javascript:void(0)" ng-click="selectImage(image.path)">
 									<div class="image-preview">
-										<img ng-src="{{$root.getShortImage(image.path, true)}}">
+										<a fancybox itemprop="image" ng-href="{{$root.getShortImage(image.path)}}" class="zoom" rel="thumbnails" title="{{model.product.title}}">
+											<img ng-src="{{$root.getShortImage(image.path, true)}}" class="attachment-shop_single wp-post-image" alt="{{model.product.title}}" title="{{model.product.title}}">
+										</a>
+
+										<!--<img ng-src="{{$root.getShortImage(image.path, true)}}">-->
 									</div>
 								</a>
+								<access-control>
+									<a class="set-default-button" href="javascript:void(0)" ng-click="setDefaultImage(image.id)">
+										Сделать главной
+									</a>
+
+									<a class="remove-image-button" href="javascript:void(0)" ng-click="deleteImage(image.id)">
+										Удалить
+									</a>
+
+								</access-control>
 							</div>
 						</div>
 						<br>

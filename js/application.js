@@ -42,6 +42,12 @@ angular.module('app', [
                 options: {
                     title: 'Товары'
                 }
+            }).when('/gallery', {
+                templateUrl: 'tmpl/gallery.html',
+                controller: 'GalleryController',
+                options: {
+                    title: 'Галерея'
+                }
             }).when('/shop-control', {
                 templateUrl: 'tmpl/admin.html',
                 controller: 'AdminController',

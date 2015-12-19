@@ -12,9 +12,6 @@ angular.module('app')
 
         function ($scope, $location, loaderService, apiService, userService) {
 
-
-
-
             $scope.model = {};
 
             function showLoader() {
@@ -46,13 +43,6 @@ angular.module('app')
 
             $scope.updateProducts();
 
-            $scope.addNewProduct = function(){
-
-                apiService.newProduct($scope.model.newProduct, userService.currentUser.apiKey).then(function(result){
-                    $scope.clear();
-                    $scope.updateProducts();
-                })
-            }
         }
     ]
 );

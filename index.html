@@ -9,6 +9,8 @@
 	<!-- Title -->
 	<title>MiMi-shop | My handmade</title>
 	<!-- Stylesheets -->
+	<link rel="stylesheet" id="responsive-css" href="./libs/angular/angular-csp.css" type="text/css" media="all">
+	<link rel="stylesheet" id="responsive-css" href="./libs/angular-bootstrap/ui-bootstrap-csp.css" type="text/css" media="all">
 	<link rel="stylesheet" href="./css/style.css" type="text/css" media="all">
 	<link href="./css/css" rel="stylesheet" type="text/css">
 	<style type="text/css">
@@ -33,22 +35,25 @@
 	<link rel="stylesheet" id="color-css" href="./css/green.css" type="text/css" media="all">
 	<link rel="stylesheet" id="responsive-css" href="./css/responsive.css" type="text/css" media="all">
 	<link rel="stylesheet" id="responsive-css" href="./css/fancybox.css" type="text/css" media="all">
-	<link rel="stylesheet" id="responsive-css" href="./libs/angular-bootstrap/ui-bootstrap-csp.css" type="text/css" media="all">
 
 
 	<!-- END head -->
 </head>
 <!-- BEGIN body -->
-<body class="home page page-id-14 page-template page-template-template-homepage-php theme-organicshop" ng-app="app" >
+<body class="home page page-id-14 page-template page-template-template-homepage-php theme-organicshop ng-cloak" ng-app="app" >
 	<!-- BEGIN .wrapper -->
 	<div ng-controller="AppController" class="wrapper">
 		<!-- BEGIN .topbar -->
 		<div class="topbar clearfix">
+
 			<div class="topbar-right clearfix">
-				<ul class="clearfix" ng-cloak>
+				<ul class="clearfix ng-cloak" >
+					<access-control ignore-demo-mode="true">
+						<li class="key-icon"><a ng-click="$root.demoMode = !$root.demoMode" href="javascript:void(0)">{{ $root.demoMode ? 'Демо режим' : 'Администрирование'}}</a></li>
+					</access-control>
 					<li ng-show="!user.isAutorized" class="checkout-icon"><a href="#/login">Вход</a></li>
 					<li ng-show="!user.isAutorized" class="checkout-icon"><a href="#/register">Регистрация</a></li>
-					<li ng-show="user.isAutorized" class="myaccount-icon"><a href="#/rofile">Мои настройки</a></li>
+					<li ng-show="user.isAutorized" class="user-icon"><a href="#/rofile">Мои настройки</a></li>
 					<li ng-show="user.isAutorized" class="myaccount-icon"><a href="" ng-click="logout($event)">Выход</a></li>
 				</ul>
 				<div class="cart-top">
@@ -136,6 +141,7 @@
 		</div>
 	</div>
 
+	<script type="text/javascript" src="./libs/underscore/underscore-min.js"></script>
 	<script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="./libs/angular/angular.min.js"></script>
 	<script type="text/javascript" src="./libs/angular-route/angular-route.min.js"></script>
@@ -146,17 +152,6 @@
 	<script type="text/javascript" src="./libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script type="text/javascript" src="./libs/ng-file-upload/ng-file-upload.min.js"></script>
 	<script type="text/javascript" src="./libs/ng-file-upload/ng-file-upload-all.min.js"></script>
-
-
-	<!-- <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="./js/hoverIntent.js"></script>
-	<script type="text/javascript" src="./js/superfish.js"></script>
-	<script type="text/javascript" src="./js/jquery.prettyPhoto.js"></script>
-
-	<script type="text/javascript" src="./js/jquery.numeric.js"></script>
-	<script type="text/javascript" src="./js/scripts.js"></script>
-	<script type="text/javascript" src="./js/add-to-cart.min.js"></script> -->
-	<!--<script type="text/javascript" src="./js/woocommerce.min.js"></script>-->
 
 	<script type="text/javascript" src="./js/fancybox.min.js"></script>
 	<script type="text/javascript" src="./js/jquery.flexslider-min.js"></script>
@@ -173,6 +168,7 @@
 	<script type="text/javascript" src="./js/controllers/appController.js"></script>
 	<script type="text/javascript" src="./js/controllers/homeController.js"></script>
 	<script type="text/javascript" src="./js/controllers/productsController.js"></script>
+	<script type="text/javascript" src="./js/controllers/galleryController.js"></script>
 	<script type="text/javascript" src="./js/controllers/productController.js"></script>
 	<script type="text/javascript" src="./js/controllers/cartController.js"></script>
 	<script type="text/javascript" src="./js/controllers/contactsController.js"></script>

@@ -255,10 +255,26 @@ a,button {
 	padding: 0 0 0 15px;
 }
 
+
 .topbar-right ul li.myaccount-icon {
 	background: url(img/lock-icon.png) no-repeat;
 	padding: 0 0 0 15px;
 }
+.topbar-right ul li.user-icon {
+	background: url(img/user.png) no-repeat;
+	padding: 0 0 0 15px;
+}
+.topbar-right ul li.key-icon {
+	background: url(img/16_key.png) no-repeat;
+	padding: 0 0 0 15px;
+}
+
+.topbar-right ul li.key-icon a,
+.topbar-right ul li.key-icon a:hover
+{
+	color: red;
+}
+
 
 /* 2.1 - Shopping Cart */
 .cart-top {
@@ -1648,6 +1664,7 @@ td.product-name dl.variation dd {
 	margin: 0 3.5% 0 0;
 	list-style: none !important;
 	border: none;
+	position: relative;
 }
 
 .product-list li.last {
@@ -2460,7 +2477,61 @@ ul.comment-list li li {
 }
 
 .set-default-button{
-	/*height: 10px;
-	width: 10px;*/
+	font-size: 12px;
+}
 
+.remove-image-button{
+	text-align: right;
+	font-size: 12px;
+	color: red;
+}
+
+.demo-mode-control{
+	width: 200px;
+	display: block;
+}
+
+.remove-product{
+	height: auto;
+	width: 19px !important;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	z-index: 2;
+}
+
+.sold-state{
+	color: green !important;
+	cursor: pointer;
+}
+
+.sold-state.sold{
+	color: red !important;
+}
+
+.field-row {
+	width: 24%;
+	display: inline-block;
+}
+
+.field-row {
+	width: 24%;
+	display: inline-block;
+}
+
+
+.field-row>input,
+.field-row>select
+{
+	width: 100px;
+}
+
+
+.field-row>input.wide{
+	width: 300px;
+}
+
+.buttons-panel> div{
+	display: inline-block;
+	width: 200px;
 }

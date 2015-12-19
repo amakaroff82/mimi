@@ -13,6 +13,20 @@ angular.module('app')
 
         function ($rootScope, $scope, $location, loaderService, apiService, userService) {
 
+            $rootScope.demoMode = false;
+
+            $rootScope.removeProduct = function(id, evt){
+                if(confirm('Вы уверены, что хотите удалить этот продукт?')) {
+                    apiService.deleteProduct(
+                        id,
+                        userService.currentUser.apiKey
+                    ).then(function(data){
+                        //alert("Продукт удален");
+                        location.reload()
+                    });
+                }
+            }
+
             $scope.user = userService.currentUser;
             userService.tryAutoLogin();
 
@@ -28,29 +42,6 @@ angular.module('app')
             $scope.showLoader = function() {
                 loaderService.showLoader();
             }
-
-
-
-
-
-
-            /*$scope.quickUserLogin = function () {
-
-                loaderService.showLoader();
-
-                apiService.login({
-                    name: 'TEST_USER',
-                    password: 'TEST_USER'
-                }, {
-                    success: function (response) {
-                        $location.path('/lectures-list');
-                    },
-                    failure: function (error) {
-                        alert(error.message);
-                        loaderService.hideLoader();
-                    }
-                });
-            }*/
         }
     ]
 );

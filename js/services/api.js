@@ -67,6 +67,16 @@ angular.module('app')
                         }
                     }, handler);
                 },
+                updateProduct: function (data, apiKey, handler) {
+                    return httpClientService.sendRequest({
+                        method: 'POST',
+                        url: baseUrl + '/updateProduct',
+                        data: data,
+                        headers:{
+                            "authorization": apiKey
+                        }
+                    }, handler);
+                },
                 setDefaultImage: function (product_id, image_id, apiKey, handler) {
                     return httpClientService.sendRequest({
                         method: 'POST',
@@ -84,6 +94,30 @@ angular.module('app')
                     return httpClientService.sendRequest({
                         method: 'POST',
                         url: baseUrl + '/productTypes'
+                    }, handler);
+                },
+                deleteImage: function(image_id, apiKey, handler){
+                    return httpClientService.sendRequest({
+                        method: 'POST',
+                        url: baseUrl + '/deleteImage',
+                        data: {
+                            image_id: image_id
+                        },
+                        headers: {
+                            "authorization": apiKey
+                        }
+                    }, handler);
+                },
+                deleteProduct: function(id, apiKey, handler){
+                    return httpClientService.sendRequest({
+                        method: 'POST',
+                        url: baseUrl + '/deleteProduct',
+                        data: {
+                            product_id: id
+                        },
+                        headers: {
+                            "authorization": apiKey
+                        }
                     }, handler);
                 }
             };

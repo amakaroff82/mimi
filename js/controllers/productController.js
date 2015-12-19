@@ -22,7 +22,12 @@ angular.module('app')
                     if($routeParams.id == product.id){
                         $scope.model.product = product;
 
-                        return;
+                        $scope.model.selectedType = _.find($scope.categories, function(category){
+                            if($scope.model.product.type == category.id){
+                                return true
+                            }
+                            return false;
+                        });
                     }
                 }
             });
@@ -50,6 +55,8 @@ angular.module('app')
                     }).then(function (response) {
                         $timeout(function () {
                             $scope.result = response.data;
+
+                            $scope.updateImages();
                         });
                     }, function (response) {
                         if (response.status > 0) {
@@ -63,7 +70,7 @@ angular.module('app')
             };
 
             $scope.selectImage = function(path){
-                $scope.model.product.path = path;
+                //$scope.model.product.path = path;
             }
 
             $scope.setDefaultImage = function(image_id){
@@ -72,18 +79,52 @@ angular.module('app')
                     image_id,
                     userService.currentUser.apiKey
                 ).then(function(data){
-                        //$scope.selectImage()
-                    /*$timeout(function(){
-                        $scope.updateImages();
-                    }, 500)*/
+
+                    var im = _.find($scope.model.images, function(item){
+                        return (item.id == image_id)
+                    });
+
+                    if(im) {
+                        $scope.model.product.path = im.path;
+                    }
                 });
             }
 
+            $scope.deleteImage = function(image_id){
+                if(confirm('Вы уверены, что хотите удалить эту картинку?')) {
+                    apiService.deleteImage(
+                        image_id,
+                        userService.currentUser.apiKey
+                    ).then(function (data) {
+                            $scope.updateImages();
+                        });
+                }
+            }
+
+            $scope.updateProduct = function(){
+                if($scope.model.selectedType) {
+                    $scope.model.product.type = $scope.model.selectedType.id;
+                }
+                apiService.updateProduct(
+                    $scope.model.product,
+                    userService.currentUser.apiKey
+                ).then(function(data){
+//                  $location.path('');
+                });
+            }
+
+            $scope.deleteProduct = function(id){
+                apiService.deleteProduct(
+                    id,
+                    userService.currentUser.apiKey
+                ).then(function(data){
+                    $location.path('');
+                });
+            }
 
             $scope.showLoader = function() {
                 loaderService.showLoader();
             }
-
         }
     ]
 );

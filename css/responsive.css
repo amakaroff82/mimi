@@ -49,7 +49,10 @@
 }
 
 @media only screen and (max-width: 900px) {
-	
+	.field-row {
+		width: 32%;
+	}
+
 	#main-menu {
 		width: 65%;
 	}
@@ -95,6 +98,10 @@
 }
 
 @media only screen and (max-width: 767px) {
+
+	.field-row {
+		width: 49%;
+	}
 
 	#footer-bottom .fl, #footer-bottom .fr {
 		float: none;
