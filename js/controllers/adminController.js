@@ -8,40 +8,33 @@ angular.module('app')
         '$location',
         'loaderService',
         'apiService',
+        'productsService',
         'userService',
 
-        function ($scope, $location, loaderService, apiService, userService) {
+        function ($scope, $location, loaderService, apiService, productsService, userService) {
 
-            $scope.model = {};
+            $scope.model = productsService.model;
 
             function showLoader() {
                 loaderService.showLoader();
             }
             $scope.showLoader = showLoader;
 
-            $scope.clear = function(){
-                $scope.model.newProduct = {
-                    title: "Игрушка",
-                    type:1,
-                    price: 0,
-                    price_old: 0,
-                    description:""
-                }
-            }
+            productsService.ready();
 
-            $scope.clear();
+            //productsService.clear();
 
-            apiService.getProductTypes().then(function(data){
+            /*productsService.getProductTypes().then(function(data){
                 $scope.categories = data.productTypes;
-            })
+            });*/
 
-            $scope.updateProducts = function(){
-                apiService.getProducts().then(function(data){
-                    $scope.products = data.products;
-                })
+
+            // TODO:
+            /*$scope.updateProducts = function(){
+                productsService.getProducts();
             }
 
-            $scope.updateProducts();
+            $scope.updateProducts();*/
 
         }
     ]

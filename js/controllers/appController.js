@@ -9,30 +9,26 @@ angular.module('app')
         '$location',
         'loaderService',
         'apiService',
+        'productsService',
         'userService',
 
-        function ($rootScope, $scope, $location, loaderService, apiService, userService) {
+        function ($rootScope, $scope, $location, loaderService, apiService, productsService, userService) {
 
             $rootScope.demoMode = false;
 
             $rootScope.removeProduct = function(id, evt){
                 if(confirm('Вы уверены, что хотите удалить этот продукт?')) {
-                    apiService.deleteProduct(
-                        id,
-                        userService.currentUser.apiKey
-                    ).then(function(data){
-                        //alert("Продукт удален");
-                        location.reload()
+                    productsService.deleteProduct(id).then(function(data){
+                        //location.reload()
                     });
                 }
             }
 
+            $scope.model = productsService.model;
+            productsService.getProductTypes();
+
             $scope.user = userService.currentUser;
             userService.tryAutoLogin();
-
-            apiService.getProductTypes().then(function(data){
-                $scope.categories = data.productTypes;
-            })
 
             $scope.logout = function($event){
                 userService.logout();

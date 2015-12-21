@@ -5,17 +5,18 @@
 
     <a ng-href="#/{{path}}/{{product.id}}">
         <div class="product-image">
+            <span ng-if="product.sold" class="onsale">Продано</span>
             <img ng-src="{{$root.getShortImage(product.path, true)}}" class="attachment-shop_catalog wp-post-image" alt="{{product.title}}" title="{{product.title}}">
         </div>
         <p class="product-title">{{product.title}}</p>
 
-        <p class="product-price">
-            <del ng-if="product.price_old != '0.00'"><span class="amount">{{product.price_old}}</span></del>
-            <ins><span class="amount">{{product.price}}</span></ins>
+        <p ng-show="!product.sold" class="product-price">
+            <del ng-if="product.price_old != '0.00'"><span class="amount">{{product.price_old | currency}}</span></del>
+            <ins><span class="amount">{{product.price | currency}}</span></ins>
         </p>
     </a>
 
-    <p class="product-button clearfix">
+    <p ng-show="!product.sold" class="product-button clearfix">
         <a href="javascript:void(0)" rel="nofollow" data-product-id="{{product.id}}" class="button2 product_type_simple">Добавить в корзину</a>
     </p>
 

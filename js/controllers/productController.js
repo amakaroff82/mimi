@@ -10,27 +10,25 @@ angular.module('app')
         'loaderService',
         'apiService',
         'userService',
+        'productsService',
         '$routeParams',
         'Upload',
 
-        function ($scope, $location, $timeout, loaderService, apiService, userService, $routeParams, Upload) {
-            $scope.model = {};
+        function ($scope, $location, $timeout, loaderService, apiService, userService, productsService, $routeParams, Upload) {
 
-            apiService.getProducts().then(function(data){
-                for(var i = 0; i < data.products.length; i++){
-                    var product = data.products[i];
-                    if($routeParams.id == product.id){
-                        $scope.model.product = product;
+            $scope.model = productsService.model;
 
-                        $scope.model.selectedType = _.find($scope.categories, function(category){
-                            if($scope.model.product.type == category.id){
-                                return true
-                            }
-                            return false;
-                        });
+
+            productsService.ready().then(function(){
+                $scope.model.product = productsService.getProductById($routeParams.id);
+
+                $scope.model.selectedType = _.find($scope.model.productTypes, function(type){
+                    if($scope.model.product.type == type.id){
+                        return true
                     }
-                }
-            });
+                    return false;
+                });
+            })
 
             $scope.updateImages = function(){
                 apiService.getProductImages($routeParams.id).then(function(data){
@@ -39,7 +37,6 @@ angular.module('app')
             }
 
             $scope.updateImages();
-
 
             $scope.uploadFiles = function (files) {
                 $scope.files = files;
@@ -118,7 +115,8 @@ angular.module('app')
                     id,
                     userService.currentUser.apiKey
                 ).then(function(data){
-                    $location.path('');
+                    model.products = _.without(model.products, _.findWhere(model.products, {id: id}));
+
                 });
             }
 

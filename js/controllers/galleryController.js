@@ -9,21 +9,15 @@ angular.module('app')
         'loaderService',
         'apiService',
         'userService',
+        'productsService',
         '$routeParams',
 
-        function ($scope, $location, loaderService, apiService, userService, $routeParams) {
+        function ($scope, $location, loaderService, apiService, userService, productsService, $routeParams) {
 
-            $scope.typeId = $routeParams.catId
+            $scope.typeId = $routeParams.catId;
 
-            var key = userService.currentUser.apiKey;
-
-            $scope.updateProducts = function(){
-                apiService.getProducts().then(function(data){
-                    $scope.products = data.products;
-                })
-            }
-
-            $scope.updateProducts();
+            $scope.model = productsService.model;
+            productsService.ready()
 
             function showLoader() {
                 loaderService.showLoader();
@@ -32,20 +26,7 @@ angular.module('app')
             $scope.showLoader = showLoader;
 
             $scope.addNewProduct = function(){
-
-                var newProduct = {
-                    title: "Новая игрушка",
-                    type: 0,
-                    price: 0.00,
-                    price_old: 0.00,
-                    sold: 0,
-                    description: "",
-                    count: 0
-                }
-
-                apiService.newProduct(newProduct, userService.currentUser.apiKey).then(function(result){
-                    newProduct.id = result.result.id;
-                    $scope.products.push(newProduct);
+                productsService.newProduct().then(function(newProduct){
                     window.location = "#/product/" + newProduct.id;
                 });
             }

@@ -7,26 +7,24 @@ angular.module('app')
         '$scope',
         '$location',
         'loaderService',
-        'apiService',
+        'productsService',
         'userService',
         '$routeParams',
 
-        function ($scope, $location, loaderService, apiService, userService, $routeParams) {
+        function ($scope, $location, loaderService, productsService, userService, $routeParams) {
 
             $scope.typeId = $routeParams.catId
 
             var key = userService.currentUser.apiKey;
 
-            apiService.getProducts().then(function(data){
-                $scope.products = data.products;
-            })
+            $scope.model = productsService.model;
+            productsService.ready();
 
             function showLoader() {
                 loaderService.showLoader();
             }
 
             $scope.showLoader = showLoader;
-
         }
     ]
 );

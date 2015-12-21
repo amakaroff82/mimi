@@ -75,8 +75,8 @@
 				<li>
 					<a href="#products" class="sf-with-ul">Магазин<span class="sf-sub-indicator"> »</span></a>
 					<ul class="sub-menu" style="display: none; visibility: hidden;">
-						<li ng-repeat="category in categories">
-							<a ng-href="#products?catId={{category.id}}">{{category.name}}</a>
+						<li ng-repeat="type in model.productTypes">
+							<a ng-href="#products?catId={{type.id}}">{{type.name}}</a>
 						</li>
 					</ul>
 				</li>
@@ -164,7 +164,7 @@
 	<script type="text/javascript" src="./js/services/api.js"></script>
 	<script type="text/javascript" src="./js/services/http-client.js"></script>
 	<script type="text/javascript" src="./js/services/userService.js"></script>
-
+	<script type="text/javascript" src="./js/services/productsService.js"></script>
 	<script type="text/javascript" src="./js/controllers/appController.js"></script>
 	<script type="text/javascript" src="./js/controllers/homeController.js"></script>
 	<script type="text/javascript" src="./js/controllers/productsController.js"></script>

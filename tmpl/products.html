@@ -15,7 +15,7 @@
 						</h2>
 						<div class="page-description"></div>				
 						<ul class="columns-3 clearfix product-list">
-							<li product="product" path="product" ng-repeat="product in products | filter:{ type: typeId, sold: 0 }">
+							<li product="product" path="product" ng-repeat="product in model.products | filter:{ type: typeId, sold: 0 }">
 
 							</li>
 						</ul>

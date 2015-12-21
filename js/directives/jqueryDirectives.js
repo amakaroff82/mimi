@@ -49,4 +49,22 @@ angular.module("app")
             }
         }
     })
+    /*.directive("money", function(){
+        return {
+            restrict: 'AC',
+            scope: {
+                scope: "="
+            },
+            template: "{{moneyFormated}}"
+            link: function (scope, element) {
+
+                scope.moneyFormated =
+            }
+        }
+    })*/
+    .filter('reverse', function() {
+        return function(items) {
+            return items.slice().reverse();
+        };
+    });
 

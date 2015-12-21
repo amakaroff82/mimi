@@ -25,8 +25,8 @@
 								<div class="summary">
 									<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
 										<h2 itemprop="price" class="product-price-single">
-											<del ng-show="model.product.price_old != '0.00'"><span class="amount">{{model.product.price_old}}грн</span></del>
-											<ins><span class="amount">{{model.product.price}}грн</span></ins>
+											<del ng-show="model.product.price_old != '0.00'"><span class="amount">{{model.product.price_old | currency}}грн</span></del>
+											<ins><span class="amount">{{model.product.price | currency}}грн</span></ins>
 										</h2>
 										<link itemprop="availability" href="http://schema.org/InStock">
 									</div>
@@ -50,33 +50,33 @@
 						<access-control>
 							<h2>Редактирование</h2>
 							<div class="">
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="title">Название<span class="required">*</span></label>
 									<input type="text" class="text_input" ng-model="model.product.title" name="title" id="title">
 								</div>
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="price">Цена<span class="required">*</span></label>
 									<input type="text" class="text_input" ng-model="model.product.price" name="price" id="price">
 								</div>
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="price_old">Старая цена<span class="required">*</span></label>
 									<input type="text" class="text_input" ng-model="model.product.price_old" name="price_old" id="price_old">
 								</div>
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="count">Количество<span class="required">*</span></label>
 									<input type="text" class="text_input" ng-model="model.product.count" name="count" id="count">
 								</div>
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="description">Тип<span class="required"></span></label>
 									<!--<input type="text" class="text_input" ng-model="model.product.description" name="description" id="description">-->
-									<select ng-options="item as item.name for item in categories track by item.id" ng-model="model.selectedType"></select>
+									<select ng-options="item as item.name for item in model.productTypes track by item.id" ng-model="model.selectedType"></select>
 								</div>
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="state">Наличие<span class="required"></span></label>
 									<!--<select style="width: 162px;" ng-options="item as item for item in ['','']" ng-model="model.selectedState"></select>-->
 									<input type="text" class="text_input sold-state" ng-class="{'sold' : (model.product.sold == 1)}" ng-click="model.product.sold == 0 ? model.product.sold = 1 : model.product.sold = 0" ng-value="model.product.sold == 0 ? 'В наличии' : 'Продано'"  name="state" id="state">
 								</div>
-								<div class="field-row">
+								<div class="field-row-edit-block">
 									<label for="description">Описание<span class="required">*</span></label>
 									<input type="text" class="text_input wide" ng-model="model.product.description" name="description" id="description">
 								</div>
@@ -130,14 +130,14 @@
 						</access-control>
 
 						<br>
+						<br>
+						<h2 class="page-title ng-binding"></h2>
+						<br>
 						<div ng-show="model.product.description != ''" id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 							<ul class="nav clearfix ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 								<li class="description_tab ui-state-default ui-corner-top">
 									<a href="javascript:void()">Описание</a>
 								</li>
-								<!--<li class="reviews_tab ui-state-default ui-corner-top ui-tabs-selected ui-state-active ui-state-focus">
-									<a href="shop/luxury-spa-set-2/#tabs-tab-title-2">Reviews (1)</a>
-								</li>-->
 							</ul>
 							<div id="tabs-tab-title-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 								<p>{{ model.product.description }}</p>
@@ -148,45 +148,12 @@
 						<div class="related products">
 							<h2>Похожие продукты</h2>
 							<ul class="products">
-
-
-								<li class="first">
-									<a href="shop/seaweed-soap-2/">
-										<div class="product-image">
-											<span class="onsale">Sale!</span>	
-											<img src="css/img/image1-285x285.jpg" class="attachment-shop_catalog wp-post-image" alt="image1" title="image1">		
-										</div>
-										<p class="product-title">Seaweed Soap</p>					
-										<p class="product-price">
-											<del><span class="amount">£18.99</span></del> 
-											<ins><span class="amount">£14.99</span></ins>
-										</p>
-									</a>
-									<p class="product-button clearfix">
-										<a href="shop/luxury-spa-set-2/?add-to-cart=72" rel="nofollow" data-product_id="72" class="button2 product_type_simple">Add to cart</a>
-									</p>
-								</li>									
-								<!--<li class="last">
-									<a href="shop/oak-candle-set/">
-										<div class="product-image">						
-											<span class="onsale">Sale!</span>	
-											<img src="css/img/image2-285x285.jpg" class="attachment-shop_catalog wp-post-image" alt="image2" title="image2">		
-										</div>					
-										<p class="product-title">Oak Candle Set</p>					
-										<p class="product-price">
-											<del><span class="amount">£49.99</span></del> 
-											<ins><span class="amount">£34.99</span></ins>
-										</p>
-									</a>
-									<p class="product-button clearfix">
-										<a href="shop/luxury-spa-set-2/?add-to-cart=62" rel="nofollow" data-product_id="62" class="button2 product_type_simple">Add to cart</a>
-									</p>												
-								</li>--->
+								<li product="product" path="product" ng-repeat="product in model.products | filter:{ type: typeId, sold: 0 }">
+								</li>
 							</ul>
 						</div>
 					<!-- END .col-main -->
 					</li>
-
 				</ul>
 			<!-- END .section -->
 			</div>

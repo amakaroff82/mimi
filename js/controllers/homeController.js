@@ -7,16 +7,19 @@ angular.module('app')
         '$scope',
         '$location',
         'loaderService',
+        'productsService',
         'apiService',
 
-        function ($scope, $location, loaderService, apiService) {
+        function ($scope, $location, loaderService, productsService, apiService) {
+
+            $scope.model = productsService.model;
+            productsService.ready();
 
             function showLoader() {
                 loaderService.showLoader();
             }
 
             $scope.showLoader = showLoader;
-
         }
     ]
 );
