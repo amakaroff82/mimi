@@ -25,8 +25,11 @@
 								<div class="summary">
 									<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
 										<h2 itemprop="price" class="product-price-single">
-											<del ng-show="model.product.price_old != '0.00'"><span class="amount">{{model.product.price_old | currency}}грн</span></del>
+											<del ng-show="model.product.price_old != 0.0"><span class="amount">{{model.product.price_old | currency}}грн</span></del>
 											<ins><span class="amount">{{model.product.price | currency}}грн</span></ins>
+											<br>
+											<span ng-if="!model.product.sold && model.product.count > 0" class="count-text">В наличии {{model.product.count}} шт.</span>
+											<span ng-if="model.product.sold || model.product.count == 0" class="count-text">Нет в наличии</span>
 										</h2>
 										<link itemprop="availability" href="http://schema.org/InStock">
 									</div>
@@ -34,15 +37,18 @@
 										<p>{{model.product.description}}</p>
 									</div>
 
-									<div action="shop/luxury-spa-set-2/?add-to-cart=74" class="qty-product-single clearfix cart" method="post" enctype="multipart/form-data">
+									<div ng-if="!model.product.sold && model.product.count > 0" class="qty-product-single clearfix cart" method="post" enctype="multipart/form-data">
 										<div class="qty-fields-large clearfix fl">
-											<input type="button" class="plusminus minus" id="minus1" value="-"><input name="quantity" data-min="1" data-max="0" value="1" size="4" title="Qty" class="qty-text" maxlength="12"><input type="button" class="plusminus plus" id="plus1" value="+">
+											<input type="button" class="plusminus minus" id="minus1" value="-" ng-click="setProductCartCountIncrement(model.product.id, false)">
+											<input name="quantity" data-min="0" data-max="{{model.product.count}}" value="{{model.productFromCartById(model.product.id).count}}" size="4" class="qty-text" maxlength="12" value="0" readonly>
+											<input type="button" class="plusminus plus" id="plus1" value="+"  ng-click="setProductCartCountIncrement(model.product.id, true)">
 										</div>
-										<button type="submit" class="single_add_to_cart_button button3 fr alt">Добавить в корзину</button>
+
+										<button type="submit" class="single_add_to_cart_button button3 fr alt" ng-click="setProductCartCountIncrement(model.product.id, true)">Добавить в корзину</button>
 									</div>
-									<div class="product_meta">
+									<!--<div class="product_meta">
 										 <span class="posted_in">Category: <a href="product-category/bath-body-care/" rel="tag">Bath &amp; Body Care</a>, <a href="product-category/hair/" rel="tag">Hair</a>, <a href="product-category/make-up/" rel="tag">Make-Up</a>, <a href="product-category/moisturisers/" rel="tag">Moisturisers</a>, <a href="product-category/spa-products/" rel="tag">Spa Products</a>.</span>
-									</div>
+									</div>-->
 								</div><!-- .summary -->
 							</li>
 						</ul>

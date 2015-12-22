@@ -20,6 +20,10 @@ angular.module('app')
             $scope.model = productsService.model;
             productsService.ready();
 
+            $scope.setProductCartCountIncrement = function(product_id, increment){
+                productsService.setProductCartCountIncrement(product_id, increment);
+            }
+
             function showLoader() {
                 loaderService.showLoader();
             }

@@ -18,10 +18,8 @@ angular.module('app')
 
             $scope.model = productsService.model;
 
-
             productsService.ready().then(function(){
                 $scope.model.product = productsService.getProductById($routeParams.id);
-
                 $scope.model.selectedType = _.find($scope.model.productTypes, function(type){
                     if($scope.model.product.type == type.id){
                         return true
@@ -29,6 +27,14 @@ angular.module('app')
                     return false;
                 });
             })
+
+            $scope.setProductCartCount = function(product_id, count){
+                productsService.setProductCartCount(product_id, count);
+            }
+
+            $scope.setProductCartCountIncrement = function(product_id, increment){
+                productsService.setProductCartCountIncrement(product_id, increment);
+            }
 
             $scope.updateImages = function(){
                 apiService.getProductImages($routeParams.id).then(function(data){

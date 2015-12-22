@@ -7,63 +7,63 @@
 			<!-- BEGIN .col-main -->
 			<li class="col-main-old">
 				<h2 class="page-title">
-					Cart				
+					Корзина
 				</h2>
 				<form action="css/img/Cart _ Organic Shop.html" method="post">
 					<table class="product-table">
 						<thead>
 							<tr>
-								<th class="product-remove">Remove</th>
-								<th class="product-name">Product Name</th>
-								<th class="product-price">Price</th>
-								<th class="product-quantity">Quantity</th>
-								<th class="product-subtotal">Total</th>
+								<th class="product-remove">Удалить</th>
+								<th class="product-name">Название</th>
+								<th class="product-price">Цена</th>
+								<th class="product-quantity">Количество</th>
+								<th class="product-subtotal">Сумма</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="cart_table_item">
+
+
+
+							<tr ng-repeat="product in cartList" class="cart_table_item">
 								<!-- Remove from cart link -->
 								<td data-title="Remove" class="product-remove">
-									<a href="cart/?remove_item=ad61ab143223efbc24c7d2583be69251&_n=0ed05b299d" class="remove" title="Remove this item">×</a>
+									<a href="javascript.void(0)" class="remove" ng-click="setProductCartCount(product.id, 0)" title="Удалить">×</a>
 								</td>
 								
 								<!-- Product Name -->
 								<td data-title="Product Name" class="product-name">
-									<a href="shop/luxury-spa-set-2/">Seaweed Spa Set</a>
+									<a ng-href="/#/product/{{product.id}}">{{product.title}}</a>
 								</td>
 								
 								<!-- Product price -->
 								<td data-title="Price">
-									<span class="amount">£46.99</span>						
+									<span class="amount">{{product.price}}</span>
 								</td>
 								
 								<!-- Quantity inputs -->
 								<td data-title="Quantity" class="qty-table product-quantity">
 									<div class="qty-fields">
-										<input type="button" class="plusminus minus" id="minus1" value="-">
-										<input name="cart[ad61ab143223efbc24c7d2583be69251][qty]" data-min="" data-max="0" value="1" size="4" title="Qty" class="qty-text" maxlength="12">
-										<input type="button" class="plusminus plus" id="plus1" value="+">
+										<input type="button" class="plusminus minus" id="minus1" value="-" ng-click="setProductCartCountIncrement(product.id, false)">
+										<input name="quantity" data-min="0" data-max="{{product.count}}" value="{{model.productFromCartById(product.id).count}}" size="4" class="qty-text" maxlength="12" value="0" readonly>
+										<input type="button" class="plusminus plus" id="plus1" value="+"  ng-click="setProductCartCountIncrement(product.id, true)">
 									</div>						
 								</td>
 								
 								<!-- Product subtotal -->
 								<td data-title="Total" class="product-subtotal">
-									<span class="amount">£46.99</span>						
+									<span class="amount">{{model.productFromCartById(product.id).count * product.price | currency}}</span>
 								</td>
 							</tr>
+
+
+
 						</tbody>
 					</table>
 
 					<!-- BEGIN .clearfix -->
 					<div class="cart-options clearfix">
-						<div class="coupon-form clearfix fl">
-							<input type="text" name="coupon_code" class="coupon-code text_input" value=""> 
-							<input type="submit" class="button2 fr" name="apply_coupon" value="Apply Coupon" style="margin: 2px 0 0 10px;">
-						</div>
 						<div class="cart-buttons fr">
-							<input type="submit" class="button2" name="update_cart" value="Update Cart" style="margin: 2px 10px 0 0;"> 
-							<a href="checkout/" class="button2 buttonpad" style="margin: 2px 0 0 0;">Proceed to Checkout →</a>
-							<input type="hidden" id="_n" name="_n" value="0ed05b299d"><input type="hidden" name="_wp_http_referer" value="/organicshopwp/cart/">		
+							<a href="javascript.void(0)" class="button2 buttonpad" style="margin: 2px 0 0 0;">Оформить заказ →</a>
 						</div>
 					<!-- END .clearfix -->
 					</div>
@@ -72,165 +72,26 @@
 				<div class="cart-collaterals">					
 					<div class="form-third ">
 						<div class="tag-title-wrap clearfix">
-							<h4 class="tag-title">Cart Totals</h4>
+							<h4 class="tag-title">Сумма</h4>
 						</div>
 						<table width="100%" class="account-table">
 							<tbody>
-								<tr>
-									<td>
-										<strong>Subtotal</strong>
-									</td>
-									<td>
-										<span class="amount">£46.99</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<strong>Shipping</strong>
-									</td>
-									<td>
-										Free Shipping<input type="hidden" name="shipping_method" id="shipping_method" value="free_shipping">
-									</td>
-								</tr>		
 								<tr class="total">
 									<td>
-										<strong>Order Total</strong>
+										<strong>Сумма заказа</strong>
 									</td>
 									<td>
-										<span class="amount">£46.99</span>
+										<span class="amount">{{model.summ | currency}}</span>
 									</td>
 								</tr>								
 							</tbody>
 						</table>
 					</div>	
 					<div class="clearboth"></div>
-					<div class="form-third">
-						<form class="shipping_calculator" action="css/img/Cart _ Organic Shop.html" method="post">
-							<p class="fr">
-								<a href="cart/#" class="button2 buttonpad fr shipping-calculator-button">Calculate Shipping <span>↓</span></a>
-							</p>							
-							<div class="clearboth"></div>							
-							<section class="shipping-calculator-form" style="display: none;">								
-								<p class="form-row form-row-first">
-									<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state" rel="calc_shipping_state">
-										<option value="">Select a country…</option>
-										<option value="AX">Åland Islands</option>
-									</select>
-								</p>								
-								<p class="form-row form-row-last">
-									<input type="text" class="input-text" value="" placeholder="State" name="calc_shipping_state" id="calc_shipping_state">
-								</p>
-								<div class="clear"></div>
-								<p class="form-row form-row-wide">
-									<input type="text" class="input-text" value="" placeholder="Postcode/Zip" title="Postcode" name="calc_shipping_postcode" id="calc_shipping_postcode">
-								</p>
-								<div class="clear"></div>
-								<p>
-									<button type="submit" name="calc_shipping" value="1" class="button2 buttonpad" style="margin: 10px 0 0 0;">Update Totals</button>
-								</p>
-								<input type="hidden" id="_n" name="_n" value="0ed05b299d">
-								<input type="hidden" name="_wp_http_referer" value="/organicshopwp/cart/">	
-							</section>
-						</form>
-					</div>
 				</div>		
 			<!-- END .col-main -->
 			</li>				
-			<!-- BEGIN .col-sidebar -->
-			<!--<li class="col-sidebar">
-				<div class="widget">
-					<div class="widget-title clearfix">
-						<h4 class="tag-title">Categories</h4>
-					</div>		
-					<ul>
-						<li class="cat-item cat-item-16">
-							<a href="category/bath-body-care/" title="View all posts filed under Bath &amp; Body Care">Bath &amp; Body Care</a>
-						</li>
-						<li class="cat-item cat-item-17">
-							<a href="category/fragrance/" title="View all posts filed under Fragrance">Fragrance</a>
-						</li>
-						<li class="cat-item cat-item-22">
-							<a href="category/hair/" title="View all posts filed under Hair">Hair</a>
-						</li>
-						<li class="cat-item cat-item-21">
-							<a href="category/make-up/" title="View all posts filed under Make-Up">Make-Up</a>
-						</li>
-						<li class="cat-item cat-item-23">
-							<a href="category/moisturisers/" title="View all posts filed under Moisturisers">Moisturisers</a>
-						</li>
-						<li class="cat-item cat-item-15">
-							<a href="category/skin-care/" title="View all posts filed under Skin Care">Skin Care</a>
-						</li>
-					</ul>
-				</div>
-				<div class="widget">
-					<div class="widget-title clearfix">
-						<h4 class="tag-title">Tags</h4>
-					</div>
-					<ul class="wp-tag-cloud">
-						<li>
-							<a href="tag/beauty/" class="tag-link-25" title="1 topic" style="font-size: 14px;">Beauty</a>
-						</li>
-						<li>
-							<a href="tag/health/" class="tag-link-24" title="1 topic" style="font-size: 14px;">Health</a>
-						</li>
-						<li>
-							<a href="tag/organic/" class="tag-link-18" title="1 topic" style="font-size: 14px;">Organic</a>
-						</li>
-						<li>
-							<a href="tag/seaweed/" class="tag-link-20" title="1 topic" style="font-size: 14px;">Seaweed</a>
-						</li>
-						<li>
-							<a href="tag/skin-care/" class="tag-link-15" title="1 topic" style="font-size: 14px;">Skin Care</a>
-						</li>
-						<li>
-							<a href="tag/soap/" class="tag-link-26" title="1 topic" style="font-size: 14px;">Soap</a>
-						</li>
-						<li>
-							<a href="tag/spa/" class="tag-link-19" title="1 topic" style="font-size: 14px;">Spa</a>
-						</li>
-					</ul>
-							
-				</div>
-				<div class="widget">
-					<div class="widget-title clearfix">
-						<h4 class="tag-title">Recent Posts</h4>
-					</div>
-					<ul class="latest-posts-list clearfix">
-						<li class="clearfix">
-							<div class="lpl-img">
-								<a href="?p=49" rel="bookmark">
-									<img width="66" height="66" src="css/img/blog-thumb1.jpg" alt="">
-								</a>
-							</div>
-							<div class="lpl-content">
-								<h6><a href="?p=49" rel="bookmark">Dasellus ac nibh urna donec ac urna</a> <span> Posted Aug 30, 2012 By admin</span></h6>
-							</div>
-						</li>
-						<li class="clearfix">
-							<div class="lpl-img">
-								<a href="?p=44" rel="bookmark">
-									<img width="66" height="66" src="css/img/blog-thumb2.jpg" alt="">
-								</a>
-							</div>
-							<div class="lpl-content">
-								<h6><a href="?p=44" rel="bookmark">Dasellus ac nibh urna donec ac urna</a> <span> Posted Aug 30, 2012 By admin</span></h6>
-							</div>
-						</li>
-						<li class="clearfix">
-							<div class="lpl-img">
-								<a href="?p=40" rel="bookmark">
-									<img width="66" height="66" src="css/img/blog-thumb3.jpg" alt="">
-								</a>
-							</div>
-							<div class="lpl-content">
-								<h6><a href="?p=40" rel="bookmark">Dasellus ac nibh urna donec ac urna</a> <span> Posted Aug 30, 2012 By admin</span></h6>
-							</div>
-						</li>
-					</ul>			
-				</div>
-			</li>-->
-		</ul>			
+		</ul>
 		<!-- END .section -->
 	</div>
 

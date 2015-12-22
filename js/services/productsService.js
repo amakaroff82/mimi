@@ -9,12 +9,86 @@ angular.module('app')
         "$q",
         function($location, apiService, userService, localStorageService, $q){
 
+
+
             var model = {
                 productsLoaded: false,
                 productTypes: false,
                 products: [],
-                productTypes: []
+                productTypes: [],
+                summ: localStorageService.get("summ") || 0,
+                cart: localStorageService.get("cart") || [],
+                productFromCartById: function(id) {
+                    var product = _.find(model.cart, function(product){
+                        return (product.id == id);
+                    });
+                    product = product || {
+                        id: id,
+                        count: 0
+                    };
+
+                    return product
+                }
             };
+
+            function setProductCartCountIncrement(product_id, increment){
+                var product = getProductById(product_id);
+                var pr = model.productFromCartById(product_id);
+                var count  = increment ? (pr.count + 1) : (pr.count - 1);
+
+                if(increment && count > product.count){
+                    return;
+                }else if(!increment && count < 0){
+                    return;
+                }
+
+                setProductCartCount(product_id, count);
+            }
+
+            function setProductCartCount(product_id, count){
+                if(typeof(count) != "number"){
+                    count = 0;
+                }
+
+                var _product = getProductById(product_id);
+                if(count > _product.count){
+                    count = _product.count
+                }
+                if(count < 0){
+                    count = 0;
+                }
+
+                var product = getCartById(product_id);
+                if(product){
+                    if(count == 0) {
+                        var ind = model.cart.indexOf(product);
+                        if(ind > -1) {
+                            model.cart.splice(ind, 1);
+                        }
+                    }
+                    else{
+                        product.count = count;
+                    }
+                }
+                else{
+                    product = {
+                        id: product_id,
+                        count: count
+                    }
+
+                    model.cart.push(product);
+                }
+
+                var _summ = 0;
+
+                for(var i = 0; i < model.cart.length; i++){
+                    var  p = model.cart[i];
+                    _summ += (p.count * getProductById(p.id).price);
+                }
+                model.summ = _summ;
+                localStorageService.set("summ", model.summ);
+                localStorageService.set("cart", model.cart);
+            }
 
             function ready(){
                 return $q.all([
@@ -59,6 +133,15 @@ angular.module('app')
                 });
             }
 
+            function getCartById(id){
+                return _.find(model.cart,function(product){
+                    if(product.id == id){
+                        return true;
+                    }
+                    return false;
+                });
+            }
+
 
             function newProduct(){
                 return $q(function(succ,err){
@@ -91,6 +174,14 @@ angular.module('app')
                 });
             }
 
+            /*function fillCart(){
+                _.forEach(model.products, function(product){
+                    if(typeof(model.products.cart_count) == "undefined"){
+                        model.products.cart_count = 0;
+                    }
+                });
+            }*/
+
             return {
                 model: model,
                 ready: ready,
@@ -98,7 +189,9 @@ angular.module('app')
                 getProductTypes: getProductTypes,
                 getProductById: getProductById,
                 deleteProduct: deleteProduct,
-                newProduct: newProduct/*,
+                newProduct: newProduct,
+                /*setProductCartCount: setProductCartCount,*/
+                setProductCartCountIncrement: setProductCartCountIncrement,/*,
                 updateProduct: updateProduct,
                 deleteProduct: deleteProduct*/
             }

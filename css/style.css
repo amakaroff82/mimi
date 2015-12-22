@@ -155,7 +155,9 @@ pre {
 
 /* 1.0 - Global */
 body {
-	background: url(http://media-cache-ak0.pinimg.com/736x/34/1a/cb/341acb497aed0a64d1d468a654305410.jpg) fixed;
+	background: url(img/bg2.jpg);
+	background-size: cover;
+
 	color: #424242;
 }
 
@@ -1412,7 +1414,7 @@ td.product-name dl.variation dd {
 }
 
 .product-table .product-price {
-	font-weight: normal;
+	/*font-weight: normal;*/
 	font-size: 14px;
 }
 
@@ -2530,4 +2532,9 @@ ul.comment-list li li {
 .buttons-panel> div{
 	display: inline-block;
 	width: 200px;
+}
+
+.count-text{
+	font-size: 13px;
+	font-weight: 400;
 }

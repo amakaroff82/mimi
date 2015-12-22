@@ -72,6 +72,12 @@ angular.module('app', [
                 options: {
                     title: 'Контакты'
                 }
+            }).when('/payment', {
+                templateUrl: 'tmpl/payment.html',
+                controller: 'PaymentController',
+                options: {
+                    title: 'Оплата и доставка'
+                }
             }).when('/register', {
                 templateUrl: 'tmpl/register.html',
                 controller: 'RegisterController',
