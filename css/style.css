@@ -1628,7 +1628,7 @@ td.product-name dl.variation dd {
 /* 6.5 - Products */
 .products li {
 	float: left;
-	width: 23.5%;
+	width: 23.0%;
 	margin: 0 2% 0 0;
 	list-style: none;
 	border: none;
@@ -1643,13 +1643,13 @@ td.product-name dl.variation dd {
 	width: 100%;
 }
 
-.product-list li:nth-child(3n+1) {
+/*.product-list li:nth-child(3n+1) {
 	clear: both;
 }
 
 .product-list li:nth-child(3n+3) {
 	margin: 0px;
-}
+}*/
 
 /* 6.6 - Products Page*/
 .product-list, 

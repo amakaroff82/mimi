@@ -276,7 +276,7 @@
 	
 	.topbar-right {
 		width: 100%;
-		padding: 0 0 4px 0;
+		padding: 0 30px 4px 0;
 		float: none;
 	}
 	
@@ -286,6 +286,10 @@
 	
 	.cart-top {
 		right: 30px;
+		/*background: none;*/
+	}
+	.cart-top .long-cart{
+		display: none;
 	}
 
 	.page-content table,

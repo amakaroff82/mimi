@@ -57,7 +57,7 @@
 					<li ng-show="user.isAutorized" class="myaccount-icon"><a href="" ng-click="logout($event)">Выход</a></li>
 				</ul>
 				<div class="cart-top">
-					<p><a href="#/cart">{{model.cart.length}} товаров</a></p>
+					<p><a href="#/cart">{{model.cart.length}} <span class="long-cart">товаров</span></a></p>
 				</div>
 			</div>
 		</div>
@@ -102,11 +102,17 @@
 			</form>
 
 			<!-- END .main-menu-wrapper -->
-			<select>
-				<!--   TODO
+
+
+			<select ng-options="o.name for o in $root.links" ng-model="$root.selectedLink" ng-change="$root.switchPage()"></select>
+
+			<!--<select ng-change="switchPage()">
+
 				<option selected="selected" value="">Go to...</option>
-				<option value="">Home</option>
-				<option value="shop/">Shop »</option>
+				<option value="/#/">Домашняя страница</option>
+				<option value="#products">Магазин »</option>
+
+
 
 				<option value="?product_cat=skin-care">Skin Care</option>
 				<option value="?product_cat=bath-body-care">Bath &amp; Body Care</option>
@@ -116,9 +122,12 @@
 				<option value="?product_cat=moisturisers">Moisturisers</option>
 				<option value="testimonials/">Testimonials</option>
 
-				<option value="blog/">Blog</option>
-				<option value="contact/">Contact</option>-->
-			</select>
+
+
+				<option value="#payment">Оплата и доставка</option>
+				<option value="#contacts">Контакты</option>
+				<option value="#gallery">Галерея</option>
+			</select>-->
 		</div>
 
 		<div ng-view> </div>

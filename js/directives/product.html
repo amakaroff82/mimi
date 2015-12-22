@@ -11,8 +11,8 @@
         <p class="product-title">{{product.title}}</p>
 
         <p ng-show="!product.sold" class="product-price">
-            <del ng-if="product.price_old != '0.00'"><span class="amount">{{product.price_old | currency}}</span></del>
-            <ins><span class="amount">{{product.price | currency}}</span></ins>
+            <del ng-if="product.price_old != '0.00'"><span class="amount">{{product.price_old | number:2}} грн</span></del>
+            <ins><span class="amount">{{product.price | number:2}} грн</span></ins>
             <br>
             <span ng-if="!product.sold && product.count > 0" class="count-text">В наличии {{product.count}} шт.</span>
             <span ng-if="product.sold || product.count == 0" class="count-text">Нет в наличии</span>

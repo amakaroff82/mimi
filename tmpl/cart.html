@@ -51,7 +51,7 @@
 								
 								<!-- Product subtotal -->
 								<td data-title="Total" class="product-subtotal">
-									<span class="amount">{{model.productFromCartById(product.id).count * product.price | currency}}</span>
+									<span class="amount">{{model.productFromCartById(product.id).count * product.price | number:2}} грн</span>
 								</td>
 							</tr>
 
@@ -81,7 +81,7 @@
 										<strong>Сумма заказа</strong>
 									</td>
 									<td>
-										<span class="amount">{{model.summ | currency}}</span>
+										<span class="amount">{{model.summ | number:2}} грн</span>
 									</td>
 								</tr>								
 							</tbody>

@@ -99,8 +99,11 @@ angular.module('app', [
         '$rootScope',
         '$location',
         '$document',
+        'productsService',
 
-        function ($rootScope, $location, $document) {
+        function ($rootScope, $location, $document, productsService) {
+
+            $rootScope.links = [];
 
             $rootScope.getShortImage = function(path, thumb){
                 var path = path || "";
@@ -114,6 +117,37 @@ angular.module('app', [
                 }
             }
 
+
+            $rootScope.model = productsService.model;
+
+            productsService.ready().then(function(){
+                $rootScope.links = [
+                    { name: "Главная", id: "/#/" },
+                    { name: "Магазин", id: "/#products" }
+                ]
+
+                _.forEach($rootScope.model.productTypes, function(type){
+                    $rootScope.links.push({
+                        id: "/#products?catId=" + type.id,
+                        name: type.name,
+                    })
+                });
+
+                $rootScope.links.push(
+                    { name: "Корзина", id: "/#cart" },
+                    { name: "Контакты", id: "/#contacts" },
+                    { name: "Оплата и доставка", id: "/#contacts" },
+                    { name: "Галерея", id: "/#gallery" }
+                );
+
+                $rootScope.selectedLink = $rootScope.links[0];
+            });
+
+            $rootScope.switchPage = function(){
+                window.location = $rootScope.selectedLink.id;
+            }
+
+
             $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
             });
 
@@ -121,6 +155,22 @@ angular.module('app', [
                 if(!currentRoute){
                     return;
                 }
+
+                /*var r = currentRoute.$$route
+                var url = r.originalPath
+
+                if(currentRoute.params.catId){
+                    url += "?catId=" + currentRoute.params.catId
+                }
+
+                //debugger
+                var link = _.find($rootScope.links, function(link){
+                    return (link.id == url)
+                })
+
+                if(link) {
+                    $rootScope.selectedLink = link;
+                }*/
 
                 var options = currentRoute['options'];
                 if (options) {
