@@ -20,19 +20,25 @@ angular.module('app')
                 $scope.$watch("$scope.model.cart", function(newVal, oldVal){
 
                     $scope.summ = 0;
-                    $scope.cartList = _.map($scope.model.cart, function(cartProduct){
+                    $scope.cartList = [];
 
-                        var product = productsService.getProductById(cartProduct.id);
+                    for(var i = 0; i < $scope.model.cart.length; i++){
+                        var product = productsService.getProductById($scope.model.cart[i].id);
 
-                        var newP = {
-                            id: product.id,
-                            count: product.count,
-                            title: product.title,
-                            price: product.price
+                        if(product) {
+                            var newP = {
+                                id: product.id,
+                                count: product.count,
+                                title: product.title,
+                                price: product.price
+                            }
+                            $scope.cartList.push(newP);
                         }
-
-                        return newP;
-                    });
+                        else{
+                            $scope.model.cart.splice(i, 1);
+                            i--;
+                        }
+                    }
                 });
             });
 
@@ -44,12 +50,13 @@ angular.module('app')
                 productsService.setProductCartCountIncrement(product_id, increment);
             }
 
-/*            $scope.summ = function(){
+            $scope.createOrder = function(id) {
 
-                _summ += (product.count * product.price);
+
+
+
+                //productsService.getProductById(id)
             }
-  */
-
 
             $scope.getProductById = function(id) {
                 productsService.getProductById(id)

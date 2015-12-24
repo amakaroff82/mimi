@@ -20,12 +20,18 @@ angular.module('app')
 
             productsService.ready().then(function(){
                 $scope.model.product = productsService.getProductById($routeParams.id);
-                $scope.model.selectedType = _.find($scope.model.productTypes, function(type){
-                    if($scope.model.product.type == type.id){
-                        return true
-                    }
-                    return false;
-                });
+
+                if($scope.model.product) {
+                    $scope.model.selectedType = _.find($scope.model.productTypes, function (type) {
+                        if ($scope.model.product.type == type.id) {
+                            return true
+                        }
+                        return false;
+                    });
+                }
+                else{
+                    window.location = "/#/"
+                }
             })
 
             $scope.setProductCartCount = function(product_id, count){
@@ -60,6 +66,7 @@ angular.module('app')
                             $scope.result = response.data;
 
                             $scope.updateImages();
+                            alert("Картинки загружены на сервер")
                         });
                     }, function (response) {
                         if (response.status > 0) {
@@ -112,18 +119,24 @@ angular.module('app')
                     $scope.model.product,
                     userService.currentUser.apiKey
                 ).then(function(data){
+                    alert("Изменения сохранены");
 //                  $location.path('');
                 });
             }
 
             $scope.deleteProduct = function(id){
-                apiService.deleteProduct(
-                    id,
-                    userService.currentUser.apiKey
-                ).then(function(data){
-                    model.products = _.without(model.products, _.findWhere(model.products, {id: id}));
+                var isRemove = confirm("Вы уверены, что хотите удалить этот продукт?");
 
-                });
+                if(isRemove) {
+                    apiService.deleteProduct(
+                        id,
+                        userService.currentUser.apiKey
+                    ).then(function (data) {
+                        $scope.model.products = _.without($scope.model.products, _.findWhere($scope.model.products, {id: id}));
+                        alert("Продукт удален");
+                        window.location = "/#gallery";
+                    });
+                }
             }
 
             $scope.showLoader = function() {
