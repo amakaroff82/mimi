@@ -25,14 +25,20 @@ angular.module("app")
         return {
             restrict: 'A',
             scope: {},
+            priority: 10001,
 
             link: function (scope, element) {
-                jQuery(element).flexslider({
-                    animation: "slide",
-                    controlNav: false,
-                    slideshow: slideshow_autoplay,
-                    slideshowSpeed: slideshow_speed
-                });
+
+                setTimeout(function(){
+
+                    jQuery(element).flexslider({
+                        animation: "slide",
+                        controlNav: false,
+                        slideshow: slideshow_autoplay,
+                        slideshowSpeed: slideshow_speed
+                    });
+
+                },100)
             }
         }
     })

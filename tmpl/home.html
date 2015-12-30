@@ -20,45 +20,25 @@
 		<div class="flex-viewport" style="overflow: hidden; position: relative;">
 			<ul class="slides" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1920px, 0px, 0px);">
 
+				<!--<li class="clone" style="width: 960px; float: left; display: block;">
+					<img src="css/img/slider/WD2.jpg" alt="">
+
+					<div class="flex-caption">
+					</div>
+				</li>
 				<li class="clone" style="width: 960px; float: left; display: block;">
 					<img src="css/img/slider/WD1.jpg" alt="">
 
 					<div class="flex-caption">
-						<!--<p>We believe in a fair deal</p>
-
-						<div class="clearboth"></div>
-						<p>which is why all our products are fair trade</p>-->
-					</div>
-				</li>
-
-				<li class="" style="width: 960px; float: left; display: block;">
-					<img src="css/img/slider/WD2.jpg" alt="">
-
-					<div class="flex-caption">
-						<!--<p>Only the finest organic materials</p>
-
-						<div class="clearboth"></div>
-						<p>are used in our products</p>-->
-					</div>
-				</li>
-				<!--<li class="flex-active-slide" style="width: 960px; float: left; display: block;">
-					<img src="css/img/slide2.jpg" alt="">
-
-					<div class="flex-caption">
-					</div>
-				</li>
-				<li class="" style="width: 960px; float: left; display: block;">
-					<img src="css/img/slide1.jpg" alt="">
-
-					<div class="flex-caption">
-					</div>
-				</li>
-				<li class="clone" style="width: 960px; float: left; display: block;">
-					<img src="css/img/slide3.jpg" alt="">
-
-					<div class="flex-caption">
 					</div>
 				</li>-->
+				<li ng-repeat="slide in slides" class="clone" style="width: 960px; float: left; display: block;">
+					<img ng-src="css/img/slider/{{slide}}" alt="">
+
+					<div class="flex-caption">
+					</div>
+				</li>
+
 			</ul>
 		</div>
 		<ul class="flex-direction-nav">

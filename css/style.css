@@ -2538,3 +2538,7 @@ ul.comment-list li li {
 	font-size: 13px;
 	font-weight: 400;
 }
+
+.flex-viewport{
+	max-height: 460px !important;
+}
