@@ -261,6 +261,26 @@ class DbHandler {
         }
     }
 
+
+    /**
+     * Create new order
+     */
+    public function newOrder($email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $phone, $order) {
+            $stmt = $this->conn->prepare("INSERT INTO orders(email, user_id, client_name, city, numb_nova_poshta, shipping_type, phone, order)) values(?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sissiiss", $email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $phone, $order);
+
+            $stmt->execute();
+
+            $params = array();            
+	    $params['id'] = mysqli_insert_id($this->conn);
+
+            $stmt->close();
+
+            return $params;
+    }
+
+
+
     /**
      * Fetching single task
      * @param String $task_id id of the task
@@ -302,9 +322,9 @@ class DbHandler {
      * Fetching all products
      */
     public function getProducts() {
-        $stmt = $this->conn->prepare('SELECT p.id, p.title, p.type, p.price, p.price_old, p.description, p.count, coalesce(i.path, "") FROM product p LEFT JOIN images i ON p.id=i.product_id');
+        $stmt = $this->conn->prepare('SELECT p.id, p.title, p.type, p.price, p.price_old, p.sold, p.description, p.count, coalesce(i.path, "") FROM product p LEFT JOIN images i ON p.default_image_id=i.id');
         $stmt->execute();
-        $stmt->bind_result($id, $title, $type, $price, $price_old, $description, $count, $path);
+        $stmt->bind_result($id, $title, $type, $price, $price_old, $sold, $description, $count, $path);
 
         $products = array();
                 
@@ -315,6 +335,7 @@ class DbHandler {
 		$res['type'] = $type;
 		$res['price'] = $price; 
 		$res['price_old'] = $price_old; 
+		$res['sold'] = $sold; 
 		$res['description'] = $description;
 		$res['count'] = $count;
 		$res['path'] = $path;
@@ -363,6 +384,38 @@ class DbHandler {
             $stmt = $this->conn->prepare("INSERT INTO product(title, type, price, price_old, description, count) values(?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("sisssi", $title, $type, $price, $price_old, $description, $count);
 
+            $stmt->execute();
+
+            $params = array();            
+	    $params['id'] = mysqli_insert_id($this->conn);
+
+            $stmt->close();
+
+            return $params;
+    }
+
+
+    /**
+     * Update product
+     */
+    public function updateProduct($id, $title, $type, $sold, $price, $price_old, $description, $count) {
+            $stmt = $this->conn->prepare("UPDATE product p set  p.title = ?, p.type = ?, p.sold = ?, p.price = ?, p.price_old = ?, p.description = ?, p.count = ? WHERE p.id = ?");
+            $stmt->bind_param("siisssii", $title, $type, $sold, $price, $price_old, $description, $count, $id);
+
+            $result = $stmt->execute();
+
+            $stmt->close();
+    }
+
+
+    /**
+     * Set default image
+     */
+    public function setDefaultImage($product_id, $image_id) {
+
+            $stmt = $this->conn->prepare("UPDATE product p set p.default_image_id = ? WHERE p.id = ?");
+            $stmt->bind_param("ii", $image_id, $product_id);
+
             $result = $stmt->execute();
 
             $stmt->close();
@@ -372,14 +425,46 @@ class DbHandler {
     /**
      * Add new image
      */
-    public function newImage($title, $type, $price, $price_old, $description, $count) {
-            $stmt = $this->conn->prepare("INSERT INTO product(title, type, price, price_old, description, count) values(?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sisssi", $title, $type, $price, $price_old, $description, $count);
+    public function saveImageByProductId($product_id, $path) {
+            $stmt = $this->conn->prepare("INSERT INTO images(product_id, path, priority) values(?, ?, 0)");
+            $stmt->bind_param("is", $product_id, $path);
 
             $result = $stmt->execute();
 
             $stmt->close();
+            return $result;
     }
+
+
+    /**
+     * Delete image
+     */
+    public function deleteImage($image_id) {
+            $stmt = $this->conn->prepare("DELETE i FROM images i WHERE i.id = ?");
+            $stmt->bind_param("i", $image_id);
+
+            $result = $stmt->execute();
+
+            $stmt->close();
+            return $result;
+    }
+
+
+
+    /**
+     * Delete product
+     */
+    public function deleteProduct($product_id) {
+            $stmt = $this->conn->prepare("DELETE p FROM product p WHERE p.id = ?");
+            $stmt->bind_param("i", $product_id);
+
+            $result = $stmt->execute();
+
+            $stmt->close();
+            return $result;
+    }
+
+
 
 
     /**

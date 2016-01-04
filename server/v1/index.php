@@ -4,6 +4,9 @@ require_once '../include/DbHandler.php';
 require_once '../include/PassHash.php';
 require '.././libs/Slim/Slim.php';
 
+require '../include/SimpleImage.php';
+
+
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
@@ -22,16 +25,22 @@ function authenticate(\Slim\Route $route) {
     $app = \Slim\Slim::getInstance();
 
     // Verifying Authorization Header
-    if (isset($headers['Authorization'])) {
+    if (isset($headers['authorization']) || isset($headers['Authorization'])) {
         $db = new DbHandler();
 
-        // get the api key
-        $api_key = $headers['Authorization'];
+
+        // get the api key        
+	if(isset($headers['authorization'])){
+		$api_key = $headers['authorization'];	
+	} else {
+		$api_key = $headers['Authorization'];	
+	}
+
         // validating api key
         if (!$db->isValidApiKey($api_key)) {
             // api key is not present in users table
             $response["error"] = true;
-            $response["message"] = "Access Denied. Invalid Api key";
+            $response["message"] = "Access Denied. Invalid Api key = " . $api_key;
             echoRespnse(401, $response);
             $app->stop();
         } else {
@@ -42,7 +51,7 @@ function authenticate(\Slim\Route $route) {
     } else {
         // api key is missing in header
         $response["error"] = true;
-        $response["message"] = "Api key is misssing";
+        $response["message"] = "Api key is missing";
 
         echoRespnse(400, $response);
         $app->stop();
@@ -160,6 +169,37 @@ $app->post('/products', function() use ($app)  {
 });
 
 
+/**
+ * Listing all products
+ * method POST
+ * url /products
+ */
+
+$app->post('/newOrder', function() use ($app)  {
+        $json = $app->request->getBody();
+        $data = json_decode($json, true); // parse the JSON into an assoc. array
+
+	$email = $data['email'];
+	$user_id = $data['user_id'];
+	$client_name = $data['client_name'];
+	$city = $data['city'];
+	$numb_nova_poshta = $data['numb_nova_poshta'];
+	$shipping_type = $data['shipping_type'];
+	$phone = $data['phone'];
+	$order = $data['order'];
+
+	$db = new DbHandler();  
+	$result = $db->newOrder($email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $phone, $order);
+
+
+	$response = array();
+	$response["error"] = false;
+	$response["products"] = $result;
+
+	echoRespnse(200, $response);
+});
+
+
 
 /**
  * Listing product images
@@ -221,43 +261,234 @@ $app->post('/productTypes', function() use ($app)  {
  * url /productTypes
  */
 
-$app->post('/newProduct', function() use ($app)  {
+
+$app->post('/newProduct', 'authenticate', function() {
+        global $user_id;
 	$response = array();
 	$db = new DbHandler();
 
-        $response = array();
+        $user = $db->getUserByUserId($user_id);
 
-        /*$title = $app->request->post('title');*/
-       $json = $app->request->getBody();
-       $data = json_decode($json, true); // parse the JSON into an assoc. array
+        if ($user != NULL && $user['isAdmin']) {
+            $app = \Slim\Slim::getInstance();
 
-/*        $title = $data->title;
-        $title = $data->title;
-        $title = $data->title;
-        $title = $data->title;
-        $title = $data->title;
+            $json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array
 
-        $type = $app->request->post('type');
-        $price = $app->request->post('price');
-        $price_old = $app->request->post('price_old');
-        $description = $app->request->post('description');
+            $result = $db->newProduct($data['title'], $data['type'], $data['price'], $data['price_old'], $data['description'], $data['count']);
 
-/*            $request_params = $_REQUEST;
-            $title = $request_params['name'];
-            $email = $request_params['email'];
-            $password = $request_params['password'];
-
-
-/* newProduct($title, $type, $price, $price_old, $description, $count) {*/
-
-	$result = $db->newProduct($data['title'], $data['type'], $data['price'], $data['price_old'], $data['description'], $data['count']);
-
-	$response["error"] = false;
-	$response["result"] = $result;
-
-
-	echoRespnse(200, $response);
+	    $response["error"] = false;
+	    $response["result"] = $result;
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+	
 });
+
+
+
+/**
+ * Update product
+ * method POST
+ * url /
+ */
+
+
+$app->post('/updateProduct', 'authenticate', function() {
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+            $app = \Slim\Slim::getInstance();
+
+            $json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array
+
+            $result = $db->updateProduct($data['id'], $data['title'], $data['type'], $data['sold'], $data['price'], $data['price_old'], $data['description'], $data['count']);
+
+	    $response["error"] = false;
+	    $response["result"] = $result;
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+	
+});
+
+
+
+/**
+ * Add new product
+ * method POST
+ * url /setDefaultImage
+ */
+
+
+$app->post('/setDefaultImage', 'authenticate', function() {
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+
+            $app = \Slim\Slim::getInstance();
+
+            $json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array
+
+            $result = $db->setDefaultImage($data['product_id'], $data['image_id']);
+
+	    $response["error"] = false;
+	    $response["result"] = $data['product_id'] . "  -  " . $data['image_id'];
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+	
+});
+
+$app->post('/deleteImage', 'authenticate', function() {
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+	
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+
+            $app = \Slim\Slim::getInstance();
+
+            $json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array
+
+            $result = $db->deleteImage($data['image_id']);
+
+	    $response["error"] = false;
+	    $response["result"] =  'OK';
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+
+});
+
+
+$app->post('/deleteProduct', 'authenticate', function() {
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+	
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+
+            $app = \Slim\Slim::getInstance();
+
+            $json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array
+
+            $result = $db->deleteProduct($data['product_id']);
+
+	    $response["error"] = false;
+	    $response["result"] =  'OK';
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+
+});
+
+
+
+
+
+/**
+ * Add new product
+ * method POST
+ * url /productTypes
+ */
+
+
+$app->post('/upload/:product_id', 'authenticate', function($product_id) {
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+
+for($i=0; $i<count($_FILES['files']['name']); $i++) {
+  //Get the temp file path
+  $tmpFilePath = $_FILES['files']['tmp_name'][$i];
+
+  //Make sure we have a filepath
+  if ($tmpFilePath != ""){
+    //Setup our new file path
+    $name = $_FILES['files']['name'][$i];
+
+    $name=str_replace(" ","_",$name);
+
+    $newFilePath = rand(1,100000).$value . "_"  . $name;
+
+    //Upload the file into the temp dir
+    if(move_uploaded_file($tmpFilePath, "../images/" . $newFilePath)) {
+	try {
+	    $img = new abeautifulsite\SimpleImage( "../images/" . $newFilePath);
+	    $img->thumbnail(160,160)->save( "../images/thumb/" .  $newFilePath);
+            $result = "ok";
+
+            $res = $db->saveImageByProductId($product_id, $newFilePath);
+
+	} catch(Exception $e) {
+	    $result = 'Error: ' . $e->getMessage();
+	}
+
+
+      //Handle other code here
+
+    }
+  }
+} 
+
+            /*$result = $_FILES['files'];*/
+	    $response["error"] = false;
+	    $response["result"] = $result;
+            echoRespnse(200, $response);
+
+
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+	
+});
+
 
 
 
@@ -295,26 +526,8 @@ $app->get('/userData', 'authenticate', function() {
                     $response['message'] = "An error occurred. Please try again";
                 }
 
-/*            // fetching all user tasks
-            $result = $db->getAllUserTasks($user_id);
-
-            $response["error"] = false;
-            $response["tasks"] = array();
-
-            // looping through result and preparing tasks array
-            while ($task = $result->fetch_assoc()) {
-                $tmp = array();
-                $tmp["id"] = $task["id"];
-                $tmp["task"] = $task["task"];
-                $tmp["status"] = $task["status"];
-                $tmp["createdAt"] = $task["created_at"];
-                array_push($response["tasks"], $tmp);
-            }    */
-
             echoRespnse(200, $response);
         });
-
-
 
 
 /**
