@@ -34,61 +34,61 @@ angular.module('app', [
                 templateUrl: 'tmpl/home.html',
                 controller: 'HomeController',
                 options: {
-                    title: 'Главная'
+                    title: 'mimi-shop | Магазин игрушек Макаровой Ирины'
                 }
             }).when('/products', {
                 templateUrl: 'tmpl/products.html',
                 controller: 'ProductsController',
                 options: {
-                    title: 'Товары'
+                    title: 'mimi-shop | Товары'
                 }
             }).when('/gallery', {
                 templateUrl: 'tmpl/gallery.html',
                 controller: 'GalleryController',
                 options: {
-                    title: 'Галерея'
+                    title: 'mimi-shop | Галерея'
                 }
             }).when('/shop-control', {
                 templateUrl: 'tmpl/admin.html',
                 controller: 'AdminController',
                 options: {
-                    title: 'Управление'
+                    title: 'mimi-shop | Управление'
                 }
             }).when('/product/:id', {
                 templateUrl: 'tmpl/product.html',
                 controller: 'ProductController',
                 options: {
-                    title: 'Товар'
+                    title: 'mimi-shop | Товар'
                 }
             }).when('/cart', {
                 templateUrl: 'tmpl/cart.html',
                 controller: 'CartController',
                 options: {
-                    title: 'Корзина'
+                    title: 'mimi-shop | Корзина'
                 }
             }).when('/contacts', {
                 templateUrl: 'tmpl/contacts.html',
                 controller: 'ContactsController',
                 options: {
-                    title: 'Контакты'
+                    title: 'mimi-shop | Контакты'
                 }
             }).when('/payment', {
                 templateUrl: 'tmpl/payment.html',
                 controller: 'PaymentController',
                 options: {
-                    title: 'Оплата и доставка'
+                    title: 'mimi-shop | Оплата и доставка'
                 }
             }).when('/register', {
                 templateUrl: 'tmpl/register.html',
                 controller: 'RegisterController',
                 options: {
-                    title: 'Регистрация'
+                    title: 'mimi-shop | Регистрация'
                 }
             }).when('/login', {
                 templateUrl: 'tmpl/login.html',
                 controller: 'LoginController',
                 options: {
-                    title: 'Вход'
+                    title: 'mimi-shop | Вход'
                 }
             })
         }
@@ -122,8 +122,8 @@ angular.module('app', [
 
             productsService.ready().then(function(){
                 $rootScope.links = [
-                    { name: "Главная", id: "/#/" },
-                    { name: "Магазин", id: "/#products" }
+                    { name: "mimi-shop | Магазин игрушек Макаровой Ирины", id: "/#/" },
+                    { name: "mimi-shop | Магазин", id: "/#products" }
                 ]
 
                 _.forEach($rootScope.model.productTypes, function(type){
@@ -134,10 +134,10 @@ angular.module('app', [
                 });
 
                 $rootScope.links.push(
-                    { name: "Корзина", id: "/#cart" },
-                    { name: "Контакты", id: "/#contacts" },
-                    { name: "Оплата и доставка", id: "/#contacts" },
-                    { name: "Галерея", id: "/#gallery" }
+                    { name: "mimi-shop | Корзина", id: "/#cart" },
+                    { name: "mimi-shop | Контакты", id: "/#contacts" },
+                    { name: "mimi-shop | Оплата и доставка", id: "/#contacts" },
+                    { name: "mimi-shop | Галерея", id: "/#gallery" }
                 );
 
                 $rootScope.selectedLink = $rootScope.links[0];

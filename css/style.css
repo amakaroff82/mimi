@@ -154,11 +154,16 @@ pre {
 }
 
 /* 1.0 - Global */
-body {
-	background: url(img/bg2.jpg);
-	background-size: cover;
-
+body>.bg{
+	position: fixed;
+	background: url(img/bg/1.jpg);
 	color: #424242;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	background-size: 100%;
 }
 
 a,button {
@@ -1005,8 +1010,9 @@ ol ol li {
 }
 
 /* 5.2 - Forms */
-.page-content input[type="text"], 
-.page-content input[type="password"], 
+.page-content input[type="text"],
+.page-content input[type="number"],
+.page-content input[type="password"],
 .page-content input[type="email"], 
 .page-content textarea,
 #footer input[type="text"], 
@@ -1020,9 +1026,11 @@ ol ol li {
 	color: #aaa;
 }
 
-.page-content input[type="text"]:active, 
-.page-content input[type="text"]:hover, 
-.page-content input[type="password"]:active, 
+.page-content input[type="text"]:active,
+.page-content input[type="text"]:hover,
+.page-content input[type="number"]:active,
+.page-content input[type="number"]:hover,
+.page-content input[type="password"]:active,
 .page-content input[type="password"]:hover,
 .page-content input[type="email"]:active, 
 .page-content input[type="email"]:hover,
@@ -1061,6 +1069,7 @@ ol ol li {
 
 .page-content label span {
 	color: #aaa !important;
+	font-size: 66%;
 }
 
 .page-content input[type="submit"] {
@@ -2514,6 +2523,8 @@ ul.comment-list li li {
 .field-row-edit-block {
 	width: 24%;
 	display: inline-block;
+	position: relative;
+	vertical-align: top;
 }
 
 
@@ -2541,4 +2552,19 @@ ul.comment-list li li {
 
 .flex-viewport{
 	max-height: 460px !important;
+}
+
+.shipping-type{
+	width: 164px !important;
+}
+
+
+.help-block{
+	position: absolute;
+	top: 60px;
+	background-color: azure;
+	padding: 8px;
+	border-radius: 15px;
+	font-size: 12px;
+	box-shadow: 1px 2px 6px 1px rgba(100,100,100,0.4);
 }

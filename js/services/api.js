@@ -67,6 +67,13 @@ angular.module('app')
                         }
                     }, handler);
                 },
+                newOrder: function (data, handler) {
+                    return httpClientService.sendRequest({
+                        method: 'POST',
+                        url: baseUrl + '/newOrder',
+                        data: data
+                    }, handler);
+                },
                 updateProduct: function (data, apiKey, handler) {
                     return httpClientService.sendRequest({
                         method: 'POST',

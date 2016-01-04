@@ -9,73 +9,70 @@
 				<h2 class="page-title">
 					Корзина
 				</h2>
-				<form action="css/img/Cart _ Organic Shop.html" method="post">
-					<table class="product-table">
-						<thead>
-							<tr>
-								<th class="product-remove">Удалить</th>
-								<th class="product-name">Название</th>
-								<th class="product-price">Цена</th>
-								<th class="product-quantity">Количество</th>
-								<th class="product-subtotal">Сумма</th>
-							</tr>
-						</thead>
-						<tbody>
-
-
-
-							<tr ng-repeat="product in cartList" class="cart_table_item">
-								<!-- Remove from cart link -->
-								<td data-title="Remove" class="product-remove">
-									<a href="javascript.void(0)" class="remove" ng-click="setProductCartCount(product.id, 0)" title="Удалить">×</a>
-								</td>
-								
-								<!-- Product Name -->
-								<td data-title="Product Name" class="product-name">
-									<a ng-href="/#/product/{{product.id}}">{{product.title}}</a>
-								</td>
-								
-								<!-- Product price -->
-								<td data-title="Price">
-									<span class="amount">{{product.price}}</span>
-								</td>
-								
-								<!-- Quantity inputs -->
-								<td data-title="Quantity" class="qty-table product-quantity">
-									<div class="qty-fields">
-										<input type="button" class="plusminus minus" id="minus1" value="-" ng-click="setProductCartCountIncrement(product.id, false)">
-										<input name="quantity" data-min="0" data-max="{{product.count}}" value="{{model.productFromCartById(product.id).count}}" size="4" class="qty-text" maxlength="12" value="0" readonly>
-										<input type="button" class="plusminus plus" id="plus1" value="+"  ng-click="setProductCartCountIncrement(product.id, true)">
-									</div>						
-								</td>
-								
-								<!-- Product subtotal -->
-								<td data-title="Total" class="product-subtotal">
-									<span class="amount">{{model.productFromCartById(product.id).count * product.price | number:2}} грн</span>
-								</td>
-							</tr>
-
-
-
-						</tbody>
-					</table>
-
-					<!-- BEGIN .clearfix -->
-					<div class="cart-options clearfix">
-						<div class="cart-buttons fr">
-							<a href="javascript.void(0)" ng-click="createOrder()" class="button2 buttonpad" style="margin: 2px 0 0 0;">Оформить заказ →</a>
-						</div>
-					<!-- END .clearfix -->
-					</div>
-				</form>
-				<hr>
-				<div class="cart-collaterals">					
-					<div class="form-third ">
-						<div class="tag-title-wrap clearfix">
-							<h4 class="tag-title">Сумма</h4>
-						</div>
-						<table width="100%" class="account-table">
+				<div ng-show="page == 1">
+					<form >
+						<table class="product-table">
+							<thead>
+								<tr>
+									<th class="product-remove">Удалить</th>
+									<th class="product-name">Название</th>
+									<th class="product-price">Цена</th>
+									<th class="product-quantity">Количество</th>
+									<th class="product-subtotal">Сумма</th>
+								</tr>
+							</thead>
 							<tbody>
+
+								<tr ng-repeat="product in cartList" class="cart_table_item">
+									<!-- Remove from cart link -->
+									<td data-title="Remove" class="product-remove">
+										<a href="javascript:void(0)" class="remove" ng-click="setProductCartCount(product.id, 0)" title="Удалить">×</a>
+									</td>
+
+									<!-- Product Name -->
+									<td data-title="Product Name" class="product-name">
+										<a ng-href="/#/product/{{product.id}}">{{product.title}}</a>
+									</td>
+
+									<!-- Product price -->
+									<td data-title="Price">
+										<span class="amount">{{product.price}}</span>
+									</td>
+
+									<!-- Quantity inputs -->
+									<td data-title="Quantity" class="qty-table product-quantity">
+										<div class="qty-fields">
+											<input type="button" class="plusminus minus" id="minus1" value="-" ng-click="setProductCartCountIncrement(product.id, false)">
+											<input name="quantity" data-min="0" data-max="{{product.count}}" value="{{model.productFromCartById(product.id).count}}" size="4" class="qty-text" maxlength="12" value="0" readonly>
+											<input type="button" class="plusminus plus" id="plus1" value="+"  ng-click="setProductCartCountIncrement(product.id, true)">
+										</div>
+									</td>
+
+									<!-- Product subtotal -->
+									<td data-title="Total" class="product-subtotal">
+										<span class="amount">{{model.productFromCartById(product.id).count * product.price | number:2}} грн</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- BEGIN .clearfix -->
+						<div class="cart-options clearfix">
+							<div class="cart-buttons fr">
+								<a href="javascript:void(0)" ng-click="page = 2" class="button2 buttonpad" style="margin: 2px 0 0 0;">Оформить заказ →</a>
+							</div>
+						<!-- END .clearfix -->
+						</div>
+					</form>
+					<br>
+					<br>
+					<hr>
+					<div class="cart-collaterals">
+						<div class="form-third ">
+							<div class="tag-title-wrap clearfix">
+								<h4 class="tag-title">Сумма</h4>
+							</div>
+							<table width="100%" class="account-table">
+								<tbody>
 								<tr class="total">
 									<td>
 										<strong>Сумма заказа</strong>
@@ -83,17 +80,65 @@
 									<td>
 										<span class="amount">{{model.summ | number:2}} грн</span>
 									</td>
-								</tr>								
-							</tbody>
-						</table>
-					</div>	
-					<div class="clearboth"></div>
-				</div>		
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="clearboth"></div>
+					</div>
+				</div>
+
+				<div  ng-show="page == 2">
+
+					<div class="msg fail" ng-click="validation.errors.splice($index, 1)" ng-repeat="error in validation.errors">{{error}}</div>
+
+					<form class="clearfix" role="form" name="orderForm">
+
+						<div class="field-row-edit-block">
+							<label for="user_name">Фамилия и Имя <span>(обязательно)</span></label>
+							<input type="text" name="user_name" class="text_input" ng-model="order.client_name">
+						</div>
+
+						<div class="field-row-edit-block">
+							<label for="email">E-mail <span>(обязательно)</span></label>
+							<input type="email" name="email" class="text_input"  ng-model="order.email">
+						</div>
+
+						<div class="field-row-edit-block">
+							<label for="phone">Телефон </label>
+							<input type="text" class="text_input" name="phone" ng-model="order.phone" >
+						</div>
+
+						<div class="field-row-edit-block">
+							<label for="city">Город <span>(обязательно)</span></label>
+							<input type="text" class="text_input" name="city" ng-model="order.city">
+						</div>
+
+						<div class="field-row-edit-block">
+							<label for="shipping">Тип доставки</label>
+							<select class="text_input shipping-type" name="shipping" ng-model="order.shipping_type" ng-options="item.key as item.value for item in shipping"></select>
+						</div>
+
+						<div class="field-row-edit-block" ng-if="order.shipping_type == 1">
+							<label for="numb_nova_poshta">Отделение Новой Почты №</label>
+							<input type="number" min="1" class="text_input" name="numb_nova_poshta" ng-model="order.numb_nova_poshta" required>
+						</div>
+
+						<div class="field-row-edit-block"  ng-show="order.shipping_type == 1">
+							<label for="payment_type">Тип оплаты</label>
+							<select class="text_input shipping-type" name="payment_type" ng-model="order.payment_type" ng-options="item.key as item.value for item in payment"></select>
+						</div>
+
+						<div class="field-row-edit-block">
+							<label for="note">Примечание к заказу</label>
+							<textarea type="text" class="text_input" name="note" ng-model="order.note"></textarea>
+						</div>
+					</form>
+					<input class="button2" type="button" value="Отправить" ng-click="createOrder()">
+				</div>
 			<!-- END .col-main -->
 			</li>				
 		</ul>
 		<!-- END .section -->
 	</div>
-
-								
 					

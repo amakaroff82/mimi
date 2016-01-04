@@ -45,6 +45,35 @@ angular.module('app')
                 setProductCartCount(product_id, count);
             }
 
+            function cartNormilized(){
+                var summ = 0;
+                var cartList = [];
+
+                for(var i = 0; i < model.cart.length; i++){
+                    var product = getProductById(model.cart[i].id);
+
+                    if(product) {
+                        var newP = {
+                            id: product.id,
+                            count: product.count,
+                            title: product.title,
+                            price: product.price
+                        }
+                        cartList.push(newP);
+                    }
+                    else{
+                        model.cart.splice(i, 1);
+                        i--;
+                    }
+                }
+
+                model.summ = cartSumm();
+                localStorageService.set("summ", model.summ);
+                localStorageService.set("cart", model.cart);
+
+                return cartList;
+            }
+
             function setProductCartCount(product_id, count){
                 if(typeof(count) != "number"){
                     count = 0;
@@ -79,15 +108,20 @@ angular.module('app')
                     model.cart.push(product);
                 }
 
+                model.summ = cartSumm();
+                localStorageService.set("summ", model.summ);
+                localStorageService.set("cart", model.cart);
+            }
+
+            function cartSumm(){
                 var _summ = 0;
 
                 for(var i = 0; i < model.cart.length; i++){
                     var  p = model.cart[i];
                     _summ += (p.count * getProductById(p.id).price);
                 }
-                model.summ = _summ;
-                localStorageService.set("summ", model.summ);
-                localStorageService.set("cart", model.cart);
+
+                return _summ;
             }
 
             function ready(){
@@ -174,26 +208,31 @@ angular.module('app')
                 });
             }
 
-            /*function fillCart(){
-                _.forEach(model.products, function(product){
-                    if(typeof(model.products.cart_count) == "undefined"){
-                        model.products.cart_count = 0;
-                    }
+            function newOrder(email, user_id, client_name, city, numb_nova_poshta, shipping_type, phone, order){
+                return apiService.newOrder({
+                    email: email,
+                    user_id: user_id,
+                    client_name: client_name,
+                    city: city,
+                    numb_nova_poshta: numb_nova_poshta,
+                    shipping_type: shipping_type,
+                    phone: phone,
+                    order: order
                 });
-            }*/
+            }
 
             return {
                 model: model,
                 ready: ready,
+                newOrder: newOrder,
                 getProducts: getProducts,
                 getProductTypes: getProductTypes,
                 getProductById: getProductById,
                 deleteProduct: deleteProduct,
                 newProduct: newProduct,
-                /*setProductCartCount: setProductCartCount,*/
-                setProductCartCountIncrement: setProductCartCountIncrement,/*,
-                updateProduct: updateProduct,
-                deleteProduct: deleteProduct*/
+                cartNormilized: cartNormilized,
+                setProductCartCount: setProductCartCount,
+                setProductCartCountIncrement: setProductCartCountIncrement
             }
         }
     ]
