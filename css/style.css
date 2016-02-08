@@ -312,22 +312,22 @@ a,button {
 /* 2.2 - Social Icons */
 .social-icons {
 	float: left;
-	margin: 8px 0 8px 30px;
+	margin: 8px 0 8px 10px;
 }
 
 .social-icons li {
 	float: left;
 }
 
-#twitter_icon, #facebook_icon, #googleplus_icon, #skype_icon, #flickr_icon, #linkedin_icon, #vimeo_icon, #youtube_icon, #rss_icon {
+#vk_icon, #instagram_icon, #twitter_icon, #facebook_icon, #googleplus_icon, #skype_icon, #flickr_icon, #linkedin_icon, #vimeo_icon, #youtube_icon, #rss_icon {
 	display: block;
 	-webkit-border-radius: 99%; 
 	-moz-border-radius: 99%;
 	-o-border-radius: 99%;
-	border-radius: 99%;
+	border-radius: 1px;
 	margin: 0 5px 0 0;
-	width: 19px;
-	height: 19px;
+	width: 20px;
+	height: 20px;
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
@@ -335,7 +335,7 @@ a,button {
 	transition: all 0.3s ease-in-out;
 }
 
-#twitter_icon:hover, #facebook_icon:hover, #googleplus_icon:hover, #skype_icon:hover, #flickr_icon:hover, #linkedin_icon:hover, #vimeo_icon:hover, #youtube_icon:hover, #rss_icon:hover {
+#vk_icon:hover, #instagram_icon:hover, #twitter_icon:hover, #facebook_icon:hover, #googleplus_icon:hover, #skype_icon:hover, #flickr_icon:hover, #linkedin_icon:hover, #vimeo_icon:hover, #youtube_icon:hover, #rss_icon:hover {
 	cursor: pointer;
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
@@ -344,11 +344,23 @@ a,button {
 	transition: all 0.2s ease-in-out;
 }
 
-#twitter_icon, #facebook_icon, #googleplus_icon, #skype_icon, #flickr_icon, #linkedin_icon, #vimeo_icon, #youtube_icon, #rss_icon {
-	background: url(img/social-icons.png) no-repeat #c5c5c5
+#vk_icon, #instagram_icon, #twitter_icon, #facebook_icon, #googleplus_icon, #skype_icon, #flickr_icon, #linkedin_icon, #vimeo_icon, #youtube_icon, #rss_icon {
+	background: url(img/social-login-icons.png) no-repeat transparent;
+	background-size: 119px;
 }
 
-#twitter_icon {
+
+#vk_icon {
+
+	background-position: -89px -22px;
+}
+
+#instagram_icon {
+	background-position: -68px -22px;
+}
+
+
+/*#twitter_icon {
 	background-position: 5px 5px;
 }
 
@@ -382,7 +394,7 @@ a,button {
 
 #rss_icon {
 	background-position: -179px 5px;
-}
+}*/
 
 /* 2.3 - Site Title */
 #site-title {
