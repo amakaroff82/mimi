@@ -10,4 +10,4 @@ var options = {
     ]
 }
 
-httpProxy.createServer(80, 'mimi-shop.com.ua', options).listen(3004);
+httpProxy.createServer(80, 'mimi-shop.com.ua', options).listen(3005);

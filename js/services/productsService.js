@@ -74,6 +74,11 @@ angular.module('app')
                 return cartList;
             }
 
+            function clearCart(){
+                model.cart = [];
+                cartNormilized();
+            }
+
             function setProductCartCount(product_id, count){
                 if(typeof(count) != "number"){
                     count = 0;
@@ -208,17 +213,16 @@ angular.module('app')
                 });
             }
 
-            function newOrder(email, user_id, client_name, city, numb_nova_poshta, shipping_type, phone, order){
+            function newOrder(email, client_name, city, numb_nova_poshta, shipping_type, phone, order){
                 return apiService.newOrder({
                     email: email,
-                    user_id: user_id,
                     client_name: client_name,
                     city: city,
                     numb_nova_poshta: numb_nova_poshta,
                     shipping_type: shipping_type,
                     phone: phone,
                     order: order
-                });
+                }, userService.currentUser.apiKey);
             }
 
             return {
@@ -232,7 +236,8 @@ angular.module('app')
                 newProduct: newProduct,
                 cartNormilized: cartNormilized,
                 setProductCartCount: setProductCartCount,
-                setProductCartCountIncrement: setProductCartCountIncrement
+                setProductCartCountIncrement: setProductCartCountIncrement,
+                clearCart: clearCart
             }
         }
     ]

@@ -60,7 +60,7 @@ angular.module('app')
 
             productsService.ready().then(function() {
 
-                $scope.order.user_id = $scope.user.id || "";
+                //$scope.order.user_id = $scope.user.id || "";
                 $scope.order.client_name = $scope.user.name || "";
                 $scope.order.email = $scope.user.email || "";
                 $scope.order.phone = $scope.user.phone || "";
@@ -127,15 +127,19 @@ angular.module('app')
 
                 productsService.newOrder(
                     $scope.order.email,
-                    $scope.order.user_id,
                     $scope.order.client_name,
                     $scope.order.city,
                     $scope.order.numb_nova_poshta,
                     $scope.order.shipping_type,
                     $scope.order.phone,
                     JSON.stringify(cartList)
-                );
+                ).then(function(){
+                    productsService.clearCart();
+                    $scope.page = 3;
+//                    window.location = "#/products";
+                });
             }
+
 
             $scope.getProductById = function(id) {
                 productsService.getProductById(id)

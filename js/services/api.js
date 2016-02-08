@@ -67,11 +67,14 @@ angular.module('app')
                         }
                     }, handler);
                 },
-                newOrder: function (data, handler) {
+                newOrder: function (data, apiKey, handler) {
                     return httpClientService.sendRequest({
                         method: 'POST',
                         url: baseUrl + '/newOrder',
-                        data: data
+                        data: data,
+                        headers:{
+                            "authorization": apiKey
+                        }
                     }, handler);
                 },
                 updateProduct: function (data, apiKey, handler) {
