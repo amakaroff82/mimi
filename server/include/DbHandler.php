@@ -263,10 +263,34 @@ class DbHandler {
 
 
     /**
+     * Send email
+     * @param String $to 
+     * @param String $subject 
+     * @param String $body 
+     */
+    public function sendEmail($to, $subject, $body) {
+	$headers = 'From: mimishop2016@gmail.com' . "\r\n" .
+		   'Reply-To: mimishop2016@gmail.com' . "\r\n" .
+		   'X-Mailer: PHP/' . phpversion();
+
+	mail($to, $subject, $body, $headers);
+    }                                               
+
+
+
+    /**
      * Create new order
+     * @param String $email 
+     * @param String $user_id 
+     * @param String $client_name 
+     * @param String $city 
+     * @param String $numb_nova_poshta 
+     * @param String $shipping_type
+     * @param String $phone 
+     * @param String $order 
      */
     public function newOrder($email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $phone, $order) {
-            $stmt = $this->conn->prepare("INSERT INTO orders(email, user_id, client_name, city, numb_nova_poshta, shipping_type, phone, order)) values(?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO orders(email, user_id, client_name, city, numb_nova_poshta, shipping_type, phone, orders.order, state) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 0)");
             $stmt->bind_param("sissiiss", $email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $phone, $order);
 
             $stmt->execute();
@@ -274,10 +298,16 @@ class DbHandler {
             $params = array();            
 	    $params['id'] = mysqli_insert_id($this->conn);
 
+	    $this->sendEmail($email, "MiMi-Shop", "Спасибо за Ваш выбор! Ваш заказ отправлен в обработку, в ближайшее время с Вами свяжется наш менеджер");
+
+	    //$this->sendEmail("amakaroff82@gmail.com", "MiMi-Shop", "");
+	    $this->sendEmail("diatelirina@gmail.com", "MiMi-Shop", "New Order");
+
             $stmt->close();
 
             return $params;
     }
+
 
 
 

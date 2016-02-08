@@ -14,6 +14,10 @@ $app = new \Slim\Slim();
 // User id from db - Global Variable
 $user_id = NULL;
 
+$search = array("\n", "\r", "\u", "\t", "\f", "\b", "/", '"');
+$replace = array("\\n", "\\r", "\\u", "\\t", "\\f", "\\b", "\/", "\"");
+
+
 /**
  * Adding Middle Layer to authenticate every request
  * Checking if the request has valid api key in the 'Authorization' header
@@ -179,22 +183,43 @@ $app->post('/newOrder', function() use ($app)  {
         $json = $app->request->getBody();
         $data = json_decode($json, true); // parse the JSON into an assoc. array
 
+
+        $headers = apache_request_headers();
+
+        $h = $headers;
+
+	if(isset($h['authorization'])){
+		$api_key = $h['authorization'];	
+	} else {
+		$api_key = $h['Authorization'];	
+	}
+
+
+
 	$email = $data['email'];
-	$user_id = $data['user_id'];
 	$client_name = $data['client_name'];
 	$city = $data['city'];
 	$numb_nova_poshta = $data['numb_nova_poshta'];
 	$shipping_type = $data['shipping_type'];
 	$phone = $data['phone'];
-	$order = $data['order'];
+
+        $order = str_replace($search, $replace, $data['order']);
 
 	$db = new DbHandler();  
+
+	$user_id = null;
+
+	if($api_key){
+        	$user_id = $db->getUserId($api_key);
+	}
+
 	$result = $db->newOrder($email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $phone, $order);
 
 
 	$response = array();
 	$response["error"] = false;
-	$response["products"] = $result;
+	$response["result"] = $result;
+//	$response["result"] = $user_id."  ".$client_name."  ".$city."  ".$numb_nova_poshta."  ".$shipping_type." ".$phone."  ".$order;
 
 	echoRespnse(200, $response);
 });
