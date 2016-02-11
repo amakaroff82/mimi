@@ -5,6 +5,9 @@
         <li class="col-main">
             <h2 class="page-title">Логин</h2>
             <form method="post" id="loginform">
+                <div ng-if="error" class="msg fail">
+                    <p>{{error}}</p>
+                </div>
                 <div class="field-row">
                     <label for="username">Email<span class="required">*</span></label>
                     <input type="text" class="text_input" name="email" id="username" ng-model="email">

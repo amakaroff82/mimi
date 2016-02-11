@@ -1,0 +1,63 @@
+﻿
+
+
+
+<div id="container">
+	<div id="content" role="main">
+		<div id="page-header">
+			<img src="css/img/page-header1.jpg" alt="">
+		</div>
+		<!-- BEGIN .section -->
+		<div class="section">
+			<ul class="columns-content page-content clearfix">
+				<!-- BEGIN .col-main -->
+				<li class="col-main-old">
+					<h2 class="page-title">
+						Все заказы
+					</h2>
+					<div class="page-description"></div>
+					<ul class="columns-3 clearfix product-list">
+						<!--<li product="product" path="product" ng-repeat="product in products">
+						</li>-->
+
+						<div ng-include="'/tmpl/orderDetails.html'" ></div>
+
+						<div ng-include="'/tmpl/orderList.html'" ></div>
+
+						<!--<form >
+							<table class="order-table">
+								<thead>
+								<tr>
+									<th class="order-name">Пользователь</th>
+									<th class="order-email">Email</th>
+								</tr>
+								</thead>
+								<tbody>
+
+								<tr ng-repeat="order in orders" class="cart_table_item">
+
+
+
+								</tr>
+								</tbody>
+							</table>
+
+							<div class="cart-options clearfix">
+								<div class="cart-buttons fr" ng-show="cartList.length > 0">
+									<a href="javascript:void(0)" ng-click="page = 2" class="button2 buttonpad" style="margin: 2px 0 0 0;">Оформить заказ →</a>
+								</div>
+
+							</div>
+						</form>-->
+					</ul>
+					<div class="clear"></div>
+					<!-- END .col-main -->
+				</li>
+			</ul>
+			<!-- END .section -->
+		</div>
+	</div>
+</div>
+
+
+

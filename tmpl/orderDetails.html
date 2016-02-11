@@ -1,0 +1,42 @@
+<form class="clearfix" role="form" name="orderForm">
+
+    <div class="field-row-edit-block">
+        <label for="user_name">Фамилия и Имя <span>(обязательно)</span></label>
+        <input type="text" name="user_name" class="text_input" ng-model="order.client_name">
+    </div>
+
+    <div class="field-row-edit-block">
+        <label for="email">E-mail <span>(обязательно)</span></label>
+        <input type="email" name="email" class="text_input"  ng-model="order.email">
+    </div>
+
+    <div class="field-row-edit-block">
+        <label for="phone">Телефон </label>
+        <input type="text" class="text_input" name="phone" ng-model="order.phone" >
+    </div>
+
+    <div class="field-row-edit-block">
+        <label for="city">Город <span>(обязательно)</span></label>
+        <input type="text" class="text_input" name="city" ng-model="order.city">
+    </div>
+
+    <div class="field-row-edit-block">
+        <label for="shipping">Тип доставки</label>
+        <select class="text_input shipping-type" name="shipping" ng-model="order.shipping_type" ng-options="item.key as item.value for item in shipping"></select>
+    </div>
+
+    <div class="field-row-edit-block" ng-if="order.shipping_type == 1">
+        <label for="numb_nova_poshta">Отделение Новой Почты №</label>
+        <input type="number" min="1" class="text_input" name="numb_nova_poshta" ng-model="order.numb_nova_poshta" required>
+    </div>
+
+    <div class="field-row-edit-block"  ng-show="order.shipping_type == 1">
+        <label for="payment_type">Тип оплаты</label>
+        <select class="text_input shipping-type" name="payment_type" ng-model="order.payment_type" ng-options="item.key as item.value for item in payment"></select>
+    </div>
+
+    <div class="field-row-edit-block">
+        <label for="note">Примечание к заказу</label>
+        <textarea type="text" class="text_input" name="note" ng-model="order.note"></textarea>
+    </div>
+</form>

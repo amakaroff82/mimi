@@ -2,7 +2,7 @@
 
 angular.module('app')
 
-    .controller('AdminController', [
+    .controller('OrdersController', [
 
         '$scope',
         '$location',
@@ -27,22 +27,7 @@ angular.module('app')
                 productsService.getOrders().then(function(res){
                     $scope.orders = res.orders;
                 });
-            })
-
-            //productsService.clear();
-
-            /*productsService.getProductTypes().then(function(data){
-                $scope.categories = data.productTypes;
-            });*/
-
-
-            // TODO:
-            /*$scope.updateProducts = function(){
-                productsService.getProducts();
-            }
-
-            $scope.updateProducts();*/
-
+            });
         }
     ]
 );

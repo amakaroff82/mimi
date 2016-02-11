@@ -1,4 +1,4 @@
-<?php
+7<?php
 
 /**
  * Class to handle all db operations
@@ -309,6 +309,72 @@ class DbHandler {
     }
 
 
+
+    /**
+     * Get orders
+     */
+    public function getOrders() {
+        $stmt = $this->conn->prepare('SELECT * FROM orders');
+        $stmt->execute();
+        $stmt->bind_result($id, $email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $created, $state, $phone, $order );
+
+        $orders = array();
+                
+	while($stmt->fetch()){
+		$res = array();
+		$res['id'] = $id;
+		$res['email'] = $email;
+		$res['user_id'] = $user_id;
+		$res['client_name'] = $client_name; 
+		$res['city'] = $city; 
+		$res['numb_nova_poshta'] = $numb_nova_poshta; 
+		$res['shipping_type'] = $shipping_type;
+		$res['created'] = $created;
+		$res['state'] = $state;
+		$res['phone'] = $phone;
+		$res['order'] = $order;
+
+		array_push($orders, $res);
+	}
+		
+
+        $stmt->close();
+        return $orders;
+    }                  
+
+
+
+    /**
+     * Get orders
+     */
+    public function getOrder($order_id) {
+        $stmt = $this->conn->prepare('SELECT * FROM orders WHERE id = ?');
+        $stmt->execute();
+        $stmt->bind_result($id, $email, $user_id, $client_name, $city, $numb_nova_poshta, $shipping_type, $created, $state, $phone, $order, $order_id);
+
+        $orders = array();
+                
+	while($stmt->fetch()){
+		$res = array();
+		$res['id'] = $id;
+		$res['email'] = $email;
+		$res['user_id'] = $user_id;
+		$res['client_name'] = $client_name; 
+		$res['city'] = $city; 
+		$res['numb_nova_poshta'] = $numb_nova_poshta; 
+		$res['shipping_type'] = $shipping_type;
+		$res['created'] = $created;
+		$res['state'] = $state;
+		$res['phone'] = $phone;
+		$res['order'] = $order;
+
+		array_push($orders, $res);
+	}
+		
+
+        $stmt->close();
+        return $orders[0];
+    }                  
 
 
     /**

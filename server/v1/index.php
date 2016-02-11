@@ -448,6 +448,84 @@ $app->post('/deleteProduct', 'authenticate', function() {
 
 
 
+/**
+ * Listing all orders
+ * method GET
+ * url /tasks          
+ */
+$app->get('/orders', 'authenticate', function() {
+
+
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+	
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+
+            $app = \Slim\Slim::getInstance();
+
+            /*$json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array*/
+
+            $result = $db->getOrders();
+
+	    $response["orders"] =  $result;
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+
+        });
+
+
+
+
+
+
+/**
+ * Listing all orders
+ * method GET
+ * url /tasks          
+ */
+$app->get('/order', 'authenticate', function() {
+
+
+        global $user_id;
+	$response = array();
+	$db = new DbHandler();
+
+	
+        $user = $db->getUserByUserId($user_id);
+
+        if ($user != NULL && $user['isAdmin']) {
+
+            $app = \Slim\Slim::getInstance();
+
+            $json = $app->request->getBody();
+            $data = json_decode($json, true); // parse the JSON into an assoc. array
+
+            $result = $db->getOrder($data["id"]);
+
+	    $response["order"] =  $result;
+            echoRespnse(200, $response);
+        }   
+        else{
+	    $response["error"] = true;
+	    $response["result"] = "Forbidden";
+            echoRespnse(403, $response);
+        }
+
+        });
+
+
+
+
 
 
 /**

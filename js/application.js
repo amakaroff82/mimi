@@ -48,11 +48,17 @@ angular.module('app', [
                 options: {
                     title: 'mimi-shop | Галерея'
                 }
-            }).when('/shop-control', {
-                templateUrl: 'tmpl/admin.html',
-                controller: 'AdminController',
+            }).when('/orders', {
+                templateUrl: 'tmpl/orders.html',
+                controller: 'OrdersController',
                 options: {
-                    title: 'mimi-shop | Управление'
+                    title: 'mimi-shop | Заказы'
+                }
+            }).when('/order/:id', {
+                templateUrl: 'tmpl/order.html',
+                controller: 'OrderController',
+                options: {
+                    title: 'mimi-shop | Заказ'
                 }
             }).when('/product/:id', {
                 templateUrl: 'tmpl/product.html',

@@ -115,6 +115,15 @@ angular.module('app')
                         }
                     }, handler);
                 },
+                getOrder: function (id, apiKey, handler) {
+                    return httpClientService.sendRequest({
+                        method: 'GET',
+                        url: baseUrl + '/order/' + id,
+                        headers: {
+                            "authorization": apiKey
+                        }
+                    }, handler);
+                },
                 deleteImage: function(image_id, apiKey, handler){
                     return httpClientService.sendRequest({
                         method: 'POST',

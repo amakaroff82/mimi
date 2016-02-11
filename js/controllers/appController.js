@@ -28,7 +28,11 @@ angular.module('app')
             productsService.getProductTypes();
 
             $scope.user = userService.currentUser;
-            userService.tryAutoLogin();
+            userService.tryAutoLogin().catch(function(){
+                if($scope.user.isAutorized || $scope.user.isAdmin) {
+                    userService.logout();
+                }
+            });
 
             $scope.logout = function($event){
                 userService.logout();

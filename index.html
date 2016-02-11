@@ -58,9 +58,9 @@
 
 			<div class="topbar-right">
 				<ul class="clearfix ng-cloak" >
-					<access-control ignore-demo-mode="true">
-						<li class="key-icon"><a ng-click="$root.demoMode = !$root.demoMode" href="javascript:void(0)">{{ $root.demoMode ? 'Демо режим' : 'Администрирование'}}</a></li>
-					</access-control>
+
+					<li access-control ignore-demo-mode="true" class="key-icon"><a ng-click="$root.demoMode = !$root.demoMode" href="javascript:void(0)">{{ $root.demoMode ? 'Демо режим' : 'Администрирование'}}</a></li>
+
 					<li ng-show="!user.isAutorized" class="checkout-icon"><a href="#/login">Вход</a></li>
 					<li ng-show="!user.isAutorized" class="checkout-icon"><a href="#/register">Регистрация</a></li>
 					<li ng-show="user.isAutorized" class="user-icon"><a href="#/rofile">Мои настройки</a></li>
@@ -100,11 +100,9 @@
 				<li>
 					<a href="#gallery">Галерея</a>
 				</li>
-				<access-control>
-					<li>
-						<a href="#shop-control">Управление</a>
-					</li>
-				</access-control>
+				<li access-control>
+					<a href="#orders">Заказы</a>
+				</li>
 			</ul>
 
 			<form method="get" id="menu-search" class="fr">
@@ -193,7 +191,8 @@
 	<script type="text/javascript" src="./js/controllers/cartController.js"></script>
 	<script type="text/javascript" src="./js/controllers/contactsController.js"></script>
 	<script type="text/javascript" src="./js/controllers/paymentController.js"></script>
-	<script type="text/javascript" src="./js/controllers/adminController.js"></script>
+	<script type="text/javascript" src="js/controllers/ordersController.js"></script>
+	<script type="text/javascript" src="js/controllers/orderController.js"></script>
 
 	<script type="text/javascript" src="./js/controllers/registerController.js"></script>
 	<script type="text/javascript" src="./js/controllers/loginController.js"></script>

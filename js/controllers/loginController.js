@@ -17,15 +17,19 @@ angular.module('app')
 
             $scope.email = "";
             $scope.password = "";
+            $scope.error = "";
 
             $scope.login = function($event) {
+                $scope.error = "";
                 userService.login(
                     $scope.email,
                     $scope.password
-                ).
-                then(function(res){
-                    $location.path('');
-                });
+                ).then( function(res){
+                            $location.path('');
+                        }, function(){
+                            $scope.error = "Неверный логин или пароль";
+                        });
+
                 $event.preventDefault();
             }
 

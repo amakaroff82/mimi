@@ -15,7 +15,11 @@
                 </div>
                 <div class="field-row">
                     <label for="password">Пароль<span class="required">*</span></label>
-                    <input class="text_input" type="password" id="passwor" ng-model="password">
+                    <input class="text_input" type="password" id="password" ng-model="password">
+                </div>
+                <div class="field-row">
+                    <label for="conf_password">Подтверждение пароля<span class="required">*</span></label>
+                    <input class="text_input" type="password" id="conf_password" ng-model="conf_password">
                 </div>
                 <p class="form-row">
                     <input type="submit" class="button2" value="Зарегистрировать" ng-click="register($event)">

@@ -15,17 +15,48 @@ angular.module('app')
                 $location.path("")
             }
 
+            $scope.error = "";
+
             $scope.name = "";
             $scope.email = "";
             $scope.password = "";
+            $scope.conf_password = "";
 
             $scope.register = function($event) {
+                $scope.error = "";
+
+                if($scope.name != "") {
+                    $scope.error = "Имя обязательное поле";
+                    return;
+                }
+
+                if($scope.email != "") {
+                    $scope.error = "Email обязательное поле";
+                    return;
+                }
+
+                if($scope.password != "") {
+                    $scope.error = "Пароль обязательное поле";
+                    return;
+                }
+
+                if($scope.conf_password != "") {
+                    $scope.error = "Подтверждение пароля обязательное поле";
+                    return;
+                }
+
+                if($scope.conf_password != $scope.password) {
+                    $scope.error = "Пароли не совпадают";
+                    return;
+                }
+
                 userService.register(
                     $scope.name,
                     $scope.email,
                     $scope.password
                 ).
                 then(function(response){
+                    $scope.error = "";
                     if(!response.error) {
                         userService.login(
                             $scope.email,

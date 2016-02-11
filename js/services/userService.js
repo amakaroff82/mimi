@@ -12,7 +12,8 @@ angular.module('app')
             var user = localStorageService.get("user") || {
                 name: "",
                 email: "",
-                isAutorized: false
+                isAutorized: false,
+                isAdmin: false
             };
 
             function packData(obj){
@@ -27,6 +28,7 @@ angular.module('app')
                 user.name = "";
                 user.email = "";
                 user.apiKey = "";
+                user.isAdmin = false;
                 user.isAutorized = false;
 
                 localStorageService.set("user", user);
@@ -63,6 +65,8 @@ angular.module('app')
                     }
 
                     def.resolve(result);
+                }, function(result){
+                    def.reject(result);
                 })
 
                 return promise;
@@ -85,6 +89,8 @@ angular.module('app')
                     }
 
                     def.resolve(result);
+                }, function (result){
+                    def.reject(result);
                 })
 
                 return promise;

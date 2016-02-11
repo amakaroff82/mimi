@@ -7,7 +7,7 @@ angular.module("app")
 
         function(userService, $rootScope){
             return {
-                restrict: 'EAC',
+                //restrict: 'EAC',
                 templateUrl: "js/directives/accessControl.html",
                 scope: {
                     product: '=',
