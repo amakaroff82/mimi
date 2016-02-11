@@ -149,6 +149,14 @@ angular.module('app')
                 })
             }
 
+
+            function getOrders(){
+                return apiService.getOrders(
+                    userService.currentUser.apiKey,
+                    angular.noop
+                );
+            }
+
             function getProductTypes(){
                 if(model.productTypesLoaded){
                     return $q(function(succ, err){
@@ -229,6 +237,7 @@ angular.module('app')
                 model: model,
                 ready: ready,
                 newOrder: newOrder,
+                getOrders: getOrders,
                 getProducts: getProducts,
                 getProductTypes: getProductTypes,
                 getProductById: getProductById,

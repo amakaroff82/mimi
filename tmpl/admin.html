@@ -17,8 +17,75 @@
 					</h2>
 					<div class="page-description"></div>
 					<ul class="columns-3 clearfix product-list">
-						<li product="product" path="product" ng-repeat="product in products">
-						</li>
+						<!--<li product="product" path="product" ng-repeat="product in products">
+						</li>-->
+
+
+
+						<form >
+							<table class="order-table">
+								<thead>
+								<tr>
+									<th class="order-name">Пользователь</th>
+									<th class="order-email">Email</th>
+								</tr>
+								</thead>
+								<tbody>
+
+								<tr ng-repeat="order in orders" class="cart_table_item">
+
+									<td data-title="Пользователь" class="order-email">
+										<a ng-href="#/order/{{order.id}}" >{{order.client_name}}</a>
+									</td>
+
+									<td data-title="Email" class="order-email">
+										<a ng-href="#/order/{{order.id}}" >{{order.email}}</a>
+									</td>
+
+									<!-- Remove from cart link
+									<td data-title="Remove" class="order-remove">
+										<a href="javascript:void(0)" class="remove" ng-click="setProductCartCount(product.id, 0)" title="Удалить">×</a>
+									</td>-->
+
+									<!-- Product Name
+									<td data-title="Product Name" class="order-name">
+										<a ng-href="/#/order/{{order.id}}">{{order.title}}</a>
+									</td>-->
+
+									<!-- Product price
+									<td data-title="Price">
+										<span class="amount">{{order.price}}</span>
+									</td>-->
+
+									<!-- Quantity inputs
+									<td data-title="Quantity" class="qty-table order-quantity">
+										<div class="qty-fields">
+											<input type="button" class="plusminus minus" id="minus1" value="-" ng-click="setProductCartCountIncrement(product.id, false)">
+											<input name="quantity" data-min="0" data-max="{{product.count}}" value="{{model.productFromCartById(product.id).count}}" size="4" class="qty-text" maxlength="12" value="0" readonly>
+											<input type="button" class="plusminus plus" id="plus1" value="+"  ng-click="setProductCartCountIncrement(product.id, true)">
+										</div>
+									</td>-->
+
+									<!-- Product subtotal
+									<td data-title="Total" class="order-subtotal">
+										<span class="amount">{{model.productFromCartById(product.id).count * product.price | number:2}} грн</span>
+									</td>
+									-->
+								</tr>
+								</tbody>
+							</table>
+							<!-- BEGIN .clearfix -->
+							<div class="cart-options clearfix">
+								<div class="cart-buttons fr" ng-show="cartList.length > 0">
+									<a href="javascript:void(0)" ng-click="page = 2" class="button2 buttonpad" style="margin: 2px 0 0 0;">Оформить заказ →</a>
+								</div>
+								<!-- END .clearfix -->
+							</div>
+						</form>
+
+
+
+
 					</ul>
 					<div class="clear"></div>
 

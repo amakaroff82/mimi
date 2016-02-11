@@ -15,12 +15,19 @@ angular.module('app')
 
             $scope.model = productsService.model;
 
+
+            $scope.orders = [];
+
             function showLoader() {
                 loaderService.showLoader();
             }
             $scope.showLoader = showLoader;
 
-            productsService.ready();
+            productsService.ready().then(function(){
+                productsService.getOrders().then(function(res){
+                    $scope.orders = res.orders;
+                });
+            })
 
             //productsService.clear();
 

@@ -14,14 +14,16 @@
 	<link rel="stylesheet" href="./css/style.css" type="text/css" media="all">
 	<link href="./css/css" rel="stylesheet" type="text/css">
 	<style type="text/css">
-		h1, h2, h3, h4, h5, h6, #ui-datepicker-div .ui-datepicker-title, .dropcap, .ui-tabs .ui-tabs-nav li,
+		/*h1, h2, h3, h4, h5, h6, #ui-datepicker-div .ui-datepicker-title, .dropcap, .ui-tabs .ui-tabs-nav li,
 		#title-wrapper h1, #main-menu li, #main-menu li span, .caption, .accommodation_img_price {
 			font-family: 'Cardo', serif;
 		}
 
 		#site-title {
 			width: 220px;
-		}</style>
+		}*/
+
+		</style>
 	<!-- RSS Feeds & Pingbacks -->
 	<link rel="alternate" type="application/rss+xml" title="Organic Shop RSS Feed" href="feed/">
 	<link rel="pingback" href="xmlrpc.php">
@@ -54,7 +56,7 @@
 			</ul>
 
 
-			<div class="topbar-right clearfix">
+			<div class="topbar-right">
 				<ul class="clearfix ng-cloak" >
 					<access-control ignore-demo-mode="true">
 						<li class="key-icon"><a ng-click="$root.demoMode = !$root.demoMode" href="javascript:void(0)">{{ $root.demoMode ? 'Демо режим' : 'Администрирование'}}</a></li>
@@ -64,14 +66,14 @@
 					<li ng-show="user.isAutorized" class="user-icon"><a href="#/rofile">Мои настройки</a></li>
 					<li ng-show="user.isAutorized" class="myaccount-icon"><a href="" ng-click="logout($event)">Выход</a></li>
 				</ul>
-				<div class="cart-top">
-					<p><a href="#/cart">{{model.cart.length}} <span class="long-cart">товаров</span></a></p>
-				</div>
+			</div>
+			<div class="cart-top">
+				<p><a href="#/cart">{{model.cart.length}} <span class="long-cart">товаров</span></a></p>
 			</div>
 		</div>
 		<div id="site-title">
 			<h1>
-				<a href="/#/">mimi <span>shop</span></a>
+				<a href="/#/">mimi-shop</a>
 				<!--<a href="http://themes.quitenicestuff.com/organicshopwp">mimi <span>shop</span></a>-->
 			</h1>
 		</div>
@@ -138,7 +140,7 @@
 			</select>-->
 		</div>
 
-		<div ng-view> </div>
+		<div ng-view autoscroll="true"> </div>
 
 		<!-- BEGIN #footer-bottom -->
 		<div id="footer-bottom" class="clearfix">
