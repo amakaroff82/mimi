@@ -42,35 +42,16 @@
 										<a ng-href="#/order/{{order.id}}" >{{order.email}}</a>
 									</td>
 
-									<!-- Remove from cart link
-									<td data-title="Remove" class="order-remove">
-										<a href="javascript:void(0)" class="remove" ng-click="setProductCartCount(product.id, 0)" title="Удалить">×</a>
-									</td>-->
+									<td data-title="Состояние" class="order-start">
 
-									<!-- Product Name
-									<td data-title="Product Name" class="order-name">
-										<a ng-href="/#/order/{{order.id}}">{{order.title}}</a>
-									</td>-->
+										State
 
-									<!-- Product price
-									<td data-title="Price">
-										<span class="amount">{{order.price}}</span>
-									</td>-->
+										<!-- <a ng-href="#/order/{{order.id}}" >{{order.email}}</a> -->
 
-									<!-- Quantity inputs
-									<td data-title="Quantity" class="qty-table order-quantity">
-										<div class="qty-fields">
-											<input type="button" class="plusminus minus" id="minus1" value="-" ng-click="setProductCartCountIncrement(product.id, false)">
-											<input name="quantity" data-min="0" data-max="{{product.count}}" value="{{model.productFromCartById(product.id).count}}" size="4" class="qty-text" maxlength="12" value="0" readonly>
-											<input type="button" class="plusminus plus" id="plus1" value="+"  ng-click="setProductCartCountIncrement(product.id, true)">
-										</div>
-									</td>-->
 
-									<!-- Product subtotal
-									<td data-title="Total" class="order-subtotal">
-										<span class="amount">{{model.productFromCartById(product.id).count * product.price | number:2}} грн</span>
 									</td>
-									-->
+
+
 								</tr>
 								</tbody>
 							</table>
