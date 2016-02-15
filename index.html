@@ -201,5 +201,13 @@
 	<script type="text/javascript" src="./js/directives/product.js"></script>
 	<script type="text/javascript" src="./js/directives/accessControl.js"></script>
 
+	<script type="text/javascript" >
+		var isOperaMini = (navigator.userAgent.indexOf('Opera Mini') > -1);
+		if(isOperaMini){
+			alert("Этот сайт не поддерживается в браузере Opera Mini. Рекомендуем использовать Google Chrome или любой другрой браузер");
+		}
+	</script>
+
+
 </body>
 </html>
